@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { Linkedin, Twitter, Instagram } from "lucide-react"
 
 export function Footer() {
     return (
@@ -20,10 +20,19 @@ export function Footer() {
                         </div>
                     </div>
 
-                    <div className="flex items-center">
-                        <div className="scale-90 opacity-70 hover:opacity-100 transition-opacity">
-                            <ThemeToggle />
-                        </div>
+                    <div className="flex items-center gap-5">
+                        <Link href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-muted-foreground/60 hover:text-foreground transition-colors">
+                            <Linkedin className="h-4 w-4" />
+                            <span className="sr-only">LinkedIn</span>
+                        </Link>
+                        <Link href="https://x.com" target="_blank" rel="noreferrer" className="text-muted-foreground/60 hover:text-foreground transition-colors">
+                            <Twitter className="h-4 w-4" />
+                            <span className="sr-only">X (Twitter)</span>
+                        </Link>
+                        <Link href="https://instagram.com" target="_blank" rel="noreferrer" className="text-muted-foreground/60 hover:text-foreground transition-colors">
+                            <Instagram className="h-4 w-4" />
+                            <span className="sr-only">Instagram</span>
+                        </Link>
                     </div>
                 </div>
             </div>
