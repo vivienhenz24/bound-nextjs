@@ -7,13 +7,13 @@ export function Hero() {
 
 
   return (
-    <section className="grid grid-cols-[2fr_1fr] gap-8 py-24">
-      <div className="flex flex-col items-start">
-        <h2 className="text-5xl font-semibold text-primary mb-4 max-w-xl">
-          Stop shipping kernels that hang.
+    <section className="grid grid-cols-2 gap-8 py-24">
+      <div className="flex flex-col items-start justify-center">
+        <h2 className="text-7xl font-semibold text-primary mb-6 max-w-xl">
+          We will prove you wrong.
         </h2>
-        <p className="text-xl font-normal text-foreground max-w-md">
-          Bound proves your async CUDA kernels can&apos;t deadlock or read stale memory — before they hit production.
+        <p className="text-2xl font-normal text-foreground max-w-md">
+          Bound proves your async CUDA kernels can&apos;t deadlock before they hit production.
         </p>
       </div>
       <div className="flex items-center justify-center h-full relative">
@@ -23,7 +23,7 @@ export function Hero() {
           width={500}
           height={500}
           priority
-          className="w-full h-full object-contain -translate-x-8 -translate-y-8 hidden dark:block"
+          className="w-full h-full object-contain hidden dark:block"
         />
         <Image
           src="/logo-light.svg"
@@ -31,7 +31,7 @@ export function Hero() {
           width={500}
           height={500}
           priority
-          className="w-full h-full object-contain -translate-x-8 -translate-y-8 block dark:hidden"
+          className="w-full h-full object-contain block dark:hidden"
         />
       </div>
     </section>
