@@ -1,7 +1,8 @@
-
-import React from "react";
-import PricingView from "@/components/pricing/pricing-view";
-
 export default function PricingPage() {
-    return <PricingView />;
+    return (
+        <div className="flex flex-col items-center justify-center min-h-[50vh] pt-20">
+            <h1 className="text-4xl font-bold tracking-tight">Pricing</h1>
+            <p className="text-muted-foreground mt-4 italic">Coming soon</p>
+        </div>
+    );
 }

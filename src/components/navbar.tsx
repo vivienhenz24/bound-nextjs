@@ -36,9 +36,11 @@ export function Navbar() {
             <span className="sr-only">GitHub</span>
           </Link>
           <ThemeToggle />
-          <Button size="sm">
-            Log In
-          </Button>
+          <Link href="/login">
+            <Button size="sm">
+              Log In
+            </Button>
+          </Link>
         </div>
 
       </div>
