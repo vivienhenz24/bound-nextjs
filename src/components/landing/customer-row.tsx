@@ -37,16 +37,16 @@ export function CustomerRow() {
     return (
         <section className="py-20 bg-background">
             <div className="container mx-auto">
-                <p className="text-center text-[13px] font-medium text-muted-foreground/50 mb-10 tracking-tight uppercase">
+                <p className="text-center text-[13px] font-medium text-muted-foreground/50 mb-10 tracking-tight">
                     Our users work at the world&apos;s leading AI labs.
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                     {labs.map((lab) => (
                         <div
                             key={lab.name}
-                            className="flex items-center justify-center py-12 px-8 bg-secondary/50 border border-white/[0.03] rounded-[var(--radius)] hover:bg-secondary hover:border-white/[0.08] transition-all group relative overflow-hidden"
+                            className="flex items-center justify-center py-12 px-8 bg-secondary/50 border border-border rounded-[var(--radius)] relative overflow-hidden"
                         >
-                            <div className="relative h-7 w-full opacity-100 brightness-0 invert group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0 transition-all duration-500 flex items-center justify-center">
+                            <div className="relative h-7 w-full opacity-100 brightness-0 dark:invert flex items-center justify-center">
                                 <img
                                     src={lab.dark}
                                     alt={lab.name}

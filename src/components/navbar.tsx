@@ -8,7 +8,7 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 w-full bg-background">
       <div className="flex h-16 items-center justify-between relative">
-        <Link href="/" className="text-2xl font-semibold text-primary">
+        <Link href="/" className="text-2xl font-semibold text-primary tracking-tight">
           bound
         </Link>
         <div className="hidden md:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2">

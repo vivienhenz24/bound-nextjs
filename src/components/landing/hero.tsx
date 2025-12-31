@@ -10,10 +10,10 @@ export function Hero() {
   return (
     <section className="grid grid-cols-2 gap-8 pt-10 pb-24">
       <div className="flex flex-col items-start justify-center">
-        <h2 className="text-7xl font-semibold text-primary mb-6 max-w-xl">
+        <h2 className="text-7xl font-semibold text-primary mb-6 max-w-xl tracking-tight">
           We will prove you wrong.
         </h2>
-        <p className="text-2xl font-normal text-foreground max-w-md mb-8">
+        <p className="text-2xl font-normal text-foreground max-w-md mb-8 tracking-tight">
           Bound proves your async CUDA kernels can&apos;t deadlock before they hit production.
         </p>
         <div className="flex gap-4">
