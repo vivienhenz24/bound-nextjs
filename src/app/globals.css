@@ -118,10 +118,11 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-hikasami-sans), system-ui, sans-serif;
-    padding-left: 256px;
-    padding-right: 256px;
+    padding-left: 196px;
+    padding-right: 196px;
   }
 }

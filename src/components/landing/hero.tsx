@@ -7,7 +7,7 @@ export function Hero() {
 
 
   return (
-    <section className="grid grid-cols-2 gap-8 py-24">
+    <section className="grid grid-cols-2 gap-8 pt-10 pb-24">
       <div className="flex flex-col items-start justify-center">
         <h2 className="text-7xl font-semibold text-primary mb-6 max-w-xl">
           We will prove you wrong.
