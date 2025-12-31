@@ -1,11 +1,11 @@
 "use client"
 
 import Image from "next/image"
-import { useTheme } from "@/hooks/use-theme"
+
 
 export function Hero() {
-  const { isDark, mounted } = useTheme()
-  
+
+
   return (
     <section className="grid grid-cols-[2fr_1fr] gap-8 py-24">
       <div className="flex flex-col items-start">
@@ -16,16 +16,23 @@ export function Hero() {
           Bound proves your async CUDA kernels can&apos;t deadlock or read stale memory — before they hit production.
         </p>
       </div>
-      <div className="flex items-center justify-center h-full">
-        {mounted && (
-          <Image
-            src={isDark ? "/logo-dark.svg" : "/logo-light.svg"}
-            alt="bound logo"
-            width={500}
-            height={500}
-            className="w-full h-full object-contain -translate-x-8 -translate-y-8"
-          />
-        )}
+      <div className="flex items-center justify-center h-full relative">
+        <Image
+          src="/logo-dark.svg"
+          alt="bound logo"
+          width={500}
+          height={500}
+          priority
+          className="w-full h-full object-contain -translate-x-8 -translate-y-8 hidden dark:block"
+        />
+        <Image
+          src="/logo-light.svg"
+          alt="bound logo"
+          width={500}
+          height={500}
+          priority
+          className="w-full h-full object-contain -translate-x-8 -translate-y-8 block dark:hidden"
+        />
       </div>
     </section>
   )
