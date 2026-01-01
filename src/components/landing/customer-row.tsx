@@ -1,35 +1,13 @@
 import React from "react"
 
-const labs = [
+const universities = [
     {
-        name: "OpenAI",
-        light: "/OpenAI_wordmark_light_dark/OpenAI_wordmark_light.svg",
-        dark: "/OpenAI_wordmark_light_dark/OpenAI_wordmark_dark.svg"
+        name: "Harvard",
+        logo: "/Harvard_University_logo.svg"
     },
     {
-        name: "Anthropic",
-        light: "/Anthropic_wordmark_light_dark/Anthropic_wordmark_light.svg",
-        dark: "/Anthropic_wordmark_light_dark/Anthropic_wordmark_dark.svg"
-    },
-    {
-        name: "Google",
-        light: "/google-wordmark.svg",
-        dark: "/google-wordmark.svg"
-    },
-    {
-        name: "Meta",
-        light: "/meta.svg",
-        dark: "/meta.svg"
-    },
-    {
-        name: "NVIDIA",
-        light: "/NVIDIA_wordmark_light_dark/NVIDIA_wordmark_light.svg",
-        dark: "/NVIDIA_wordmark_light_dark/NVIDIA_wordmark_dark.svg"
-    },
-    {
-        name: "xAI",
-        light: "/xAI (Grok)_light_dark/xAI (Grok)_light.svg",
-        dark: "/xAI (Grok)_light_dark/xAI (Grok)_dark.svg"
+        name: "Berkeley",
+        logo: "/University_of_California,_Berkeley_logo.svg"
     },
 ]
 
@@ -38,24 +16,19 @@ export function CustomerRow() {
         <section className="py-20 bg-background">
             <div className="container mx-auto">
                 <p className="text-center text-[13px] font-medium text-muted-foreground/50 mb-10 tracking-tight">
-                    Our users work at the world&apos;s leading AI labs.
+                    built by engineers from
                 </p>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-                    {labs.map((lab) => (
+                <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
+                    {universities.map((university) => (
                         <div
-                            key={lab.name}
-                            className="flex items-center justify-center py-12 px-8 bg-secondary/50 border border-border rounded-[var(--radius)] relative overflow-hidden"
+                            key={university.name}
+                            className="flex items-center justify-center aspect-square bg-secondary/50 border border-border rounded-[var(--radius)] relative overflow-hidden"
                         >
-                            <div className="relative h-7 w-full opacity-100 brightness-0 dark:invert flex items-center justify-center">
+                            <div className="relative h-16 w-full opacity-100 brightness-0 invert flex items-center justify-center">
                                 <img
-                                    src={lab.dark}
-                                    alt={lab.name}
-                                    className="h-full w-auto object-contain hidden dark:block"
-                                />
-                                <img
-                                    src={lab.light}
-                                    alt={lab.name}
-                                    className="h-full w-auto object-contain block dark:hidden"
+                                    src={university.logo}
+                                    alt={university.name}
+                                    className="h-full w-auto object-contain"
                                 />
                             </div>
                         </div>

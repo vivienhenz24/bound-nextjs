@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "bound",
-  description: "Formally verify your CUDA kernel",
+  description: "Formally verify your auth SDKs",
   icons: {
     icon: "/logo-icon.svg",
   },

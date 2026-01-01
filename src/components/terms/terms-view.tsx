@@ -19,7 +19,7 @@ const TermsView = () => {
                 <section className="mb-10">
                     <h2 className="text-2xl font-bold mb-4">2. Description of Service</h2>
                     <p className="text-muted-foreground leading-relaxed">
-                        bound provides formal verification tools for CUDA kernels. We reserve the right to modify or discontinue the service at any time without notice.
+                        bound provides formal verification tools for auth SDKs. We reserve the right to modify or discontinue the service at any time without notice.
                     </p>
                 </section>
 
