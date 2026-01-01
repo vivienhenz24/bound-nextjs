@@ -31,7 +31,7 @@ export function PublicNavbar() {
         </div>
         <div className="flex items-center gap-2">
           <Link
-            href="https://github.com"
+            href="https://github.com/bound-systems"
             target="_blank"
             rel="noreferrer"
             className="text-foreground hover:text-muted-foreground transition-colors p-2"
