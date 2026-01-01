@@ -24,14 +24,15 @@ export function CustomerRow() {
                             key={university.name}
                             className="flex items-center justify-center aspect-square bg-secondary/50 border border-border rounded-[var(--radius)] relative overflow-hidden"
                         >
-                            <div className="relative h-10 w-full flex items-center justify-center">
+                            <div className={`relative ${university.name === 'Harvard' ? 'h-12' : 'h-10'} w-full flex items-center justify-center`}>
                                 <img
                                     src={university.logo}
                                     alt={university.name}
-                                    className="h-full w-auto object-contain brightness-0 invert"
+                                    className="h-full w-auto object-contain"
                                     style={{ 
-                                        imageRendering: 'auto',
-                                        WebkitImageRendering: 'auto'
+                                        filter: 'brightness(0) invert(1)',
+                                        WebkitFilter: 'brightness(0) invert(1)',
+                                        imageRendering: 'crisp-edges'
                                     }}
                                 />
                             </div>
