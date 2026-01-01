@@ -9,10 +9,10 @@ export function Hero() {
 
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 pb-12 md:pt-10 md:pb-24">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 pb-4 md:pt-10 md:pb-8">
       <div className="flex flex-col items-start justify-center">
         <h2 className="text-4xl md:text-5xl lg:text-7xl font-semibold text-primary mb-6 max-w-xl tracking-tight">
-          We can prove you wrong
+          Let us prove you wrong
         </h2>
         <p className="text-lg md:text-xl lg:text-2xl font-normal text-foreground max-w-md mb-8 tracking-tight">
           Bound verifies your auth SDKs are secure and correct before they hit production.
