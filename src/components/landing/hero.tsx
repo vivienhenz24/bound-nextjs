@@ -14,7 +14,7 @@ export function Hero() {
           We will prove you wrong.
         </h2>
         <p className="text-2xl font-normal text-foreground max-w-md mb-8 tracking-tight">
-          Bound proves your async CUDA kernels can&apos;t deadlock before they hit production.
+          Bound verifies your async CUDA kernels can&apos;t deadlock before they hit production.
         </p>
         <div className="flex gap-4">
           <Button size="lg">

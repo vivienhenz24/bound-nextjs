@@ -67,10 +67,10 @@ export function LoginForm() {
                 </FieldSet>
 
                 <div className="flex flex-col gap-3">
-                    <Button type="submit" className="w-full h-11 text-sm font-semibold tracking-tight bg-primary text-primary-foreground hover:opacity-90 transition-opacity">
+                    <Button type="submit" className="w-full h-11">
                         Continue
                     </Button>
-                    <Button variant="outline" className="w-full h-11 text-sm font-semibold tracking-tight border-border/50 bg-secondary/30 hover:bg-secondary/50 transition-colors">
+                    <Button variant="outline" className="w-full h-11">
                         Sign in with Google
                     </Button>
                 </div>
