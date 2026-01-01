@@ -9,7 +9,7 @@ export function Hero() {
 
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 pb-12 md:pt-10 md:pb-24">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 pb-4 md:pt-10 md:pb-8">
       <div className="flex flex-col items-start justify-center">
         <h2 className="text-4xl md:text-5xl lg:text-7xl font-semibold text-primary mb-6 max-w-xl tracking-tight">
           We can prove you wrong
