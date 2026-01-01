@@ -28,12 +28,7 @@ export function CustomerRow() {
                                 <img
                                     src={university.logo}
                                     alt={university.name}
-                                    className="h-full w-auto object-contain"
-                                    style={{ 
-                                        filter: 'brightness(0) invert(1)',
-                                        WebkitFilter: 'brightness(0) invert(1)',
-                                        imageRendering: 'crisp-edges'
-                                    }}
+                                    className="h-full w-auto object-contain brightness-0 dark:invert"
                                 />
                             </div>
                         </div>
