@@ -13,7 +13,7 @@ const universities = [
 
 export function CustomerRow() {
     return (
-        <section className="pt-4 pb-8 bg-background">
+        <section className="-mt-[12vh] md:-mt-[18vh] pt-36 md:pt-48 pb-8 bg-background">
             <div className="container mx-auto">
                 <p className="text-center text-[13px] font-medium text-muted-foreground/50 mb-4 tracking-tight">
                     built by engineers from
