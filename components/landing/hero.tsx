@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
 
@@ -17,12 +18,16 @@ export function Hero() {
           Bound verifies your auth SDKs are secure and correct before they hit production.
         </p>
         <div className="flex flex-row gap-4">
-          <Button size="lg">
-            Join Waitlist
-          </Button>
-          <Button size="lg" variant="outline">
-            Contact Us
-          </Button>
+          <Link href="/waitlist">
+            <Button size="lg">
+              Join Waitlist
+            </Button>
+          </Link>
+          <a href="https://calendly.com/vikrambhamre/meeting" target="_blank" rel="noopener noreferrer">
+            <Button size="lg" variant="outline">
+              Let's Talk
+            </Button>
+          </a>
         </div>
       </div>
       <div className="hidden md:flex items-center justify-center h-full relative">
