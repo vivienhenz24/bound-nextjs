@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Geist_Mono } from "next/font/google";
-import "../app/globals.css";
+import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const hikasamiSans = localFont({

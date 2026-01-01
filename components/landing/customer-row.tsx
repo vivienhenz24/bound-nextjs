@@ -24,11 +24,15 @@ export function CustomerRow() {
                             key={university.name}
                             className="flex items-center justify-center aspect-square bg-secondary/50 border border-border rounded-[var(--radius)] relative overflow-hidden"
                         >
-                            <div className="relative h-10 w-full opacity-100 brightness-0 invert flex items-center justify-center">
+                            <div className="relative h-10 w-full flex items-center justify-center">
                                 <img
                                     src={university.logo}
                                     alt={university.name}
-                                    className="h-full w-auto object-contain"
+                                    className="h-full w-auto object-contain brightness-0 invert"
+                                    style={{ 
+                                        imageRendering: 'auto',
+                                        WebkitImageRendering: 'auto'
+                                    }}
                                 />
                             </div>
                         </div>
