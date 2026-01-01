@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import { Geist_Mono } from "next/font/google";
 import "../app/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Footer } from "@/components/footer";
 
 const hikasamiSans = localFont({
   src: "../fonts/variable/Hikasami-VF.woff2",
@@ -49,7 +48,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

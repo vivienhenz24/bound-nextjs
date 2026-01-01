@@ -13,7 +13,7 @@ import {
 export function AppNavbar() {
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-background border-b border-border">
+    <nav className="sticky top-0 z-50 w-full bg-background">
       <div className="flex h-16 items-center justify-between px-4 md:px-6">
         <NavigationMenu viewport={false}>
           <NavigationMenuList className="list-none">
@@ -43,44 +43,6 @@ export function AppNavbar() {
         </NavigationMenu>
         <div className="flex items-center gap-2 shrink-0">
           <ThemeToggle />
-          {mounted ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="gap-2 shrink-0 w-max h-9">
-                  <User className="h-4 w-4 shrink-0" />
-                  <span className="whitespace-nowrap">username</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent 
-                align="end" 
-                className="w-48 max-w-[calc(100vw-2rem)]"
-                side="bottom"
-                sideOffset={4}
-                alignOffset={0}
-              >
-                <DropdownMenuLabel>username</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <User className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem variant="destructive">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Button variant="ghost" size="sm" className="gap-2 shrink-0 w-max h-9" disabled>
-              <User className="h-4 w-4 shrink-0" />
-              <span className="whitespace-nowrap">username</span>
-            </Button>
-          )}
         </div>
       </div>
     </nav>
