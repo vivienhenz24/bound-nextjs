@@ -5,6 +5,12 @@ import Link from "next/link"
 import { Github, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuLink,
+} from "@/components/ui/navigation-menu"
 
 
 export function PublicNavbar() {
@@ -17,18 +23,38 @@ export function PublicNavbar() {
           bound
         </Link>
         <div className="hidden md:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2">
-          <Link href="/features" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
-            Features
-          </Link>
-          <Link href="/enterprise" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
-            Enterprise
-          </Link>
-          <Link href="/pricing" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
-            Pricing
-          </Link>
-          <Link href="/resources" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
-            Resources
-          </Link>
+          <NavigationMenu viewport={false}>
+            <NavigationMenuList className="gap-8 list-none">
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link href="/features" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
+                    Features
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link href="/enterprise" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
+                    Enterprise
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link href="/pricing" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
+                    Pricing
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link href="/resources" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
+                    Resources
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
         <div className="flex items-center gap-2">
           <Link
@@ -59,41 +85,61 @@ export function PublicNavbar() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-border/40 bg-background">
-          <div className="flex flex-col px-4 py-4 gap-4">
-            <Link 
-              href="/features" 
-              className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Features
-            </Link>
-            <Link 
-              href="/enterprise" 
-              className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Enterprise
-            </Link>
-            <Link 
-              href="/pricing" 
-              className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Pricing
-            </Link>
-            <Link 
-              href="/resources" 
-              className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Resources
-            </Link>
-            <Link href="/login" className="pt-2" onClick={() => setMobileMenuOpen(false)}>
-              <Button size="sm" className="w-full">
-                Log In
-              </Button>
-            </Link>
-          </div>
+          <NavigationMenu viewport={false}>
+            <NavigationMenuList className="flex flex-col items-start px-4 py-4 gap-4 list-none">
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link 
+                    href="/features" 
+                    className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Features
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link 
+                    href="/enterprise" 
+                    className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Enterprise
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link 
+                    href="/pricing" 
+                    className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Pricing
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link 
+                    href="/resources" 
+                    className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Resources
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem className="pt-2 w-full">
+                <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="w-full">
+                  <Button size="sm" className="w-full">
+                    Log In
+                  </Button>
+                </Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
       )}
     </nav>
