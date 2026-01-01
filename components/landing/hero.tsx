@@ -20,9 +20,11 @@ export function Hero() {
           <Button size="lg">
             Join Waitlist
           </Button>
-          <Button size="lg" variant="outline">
-            Contact Us
-          </Button>
+          <a href="https://calendly.com/vikrambhamre/meeting" target="_blank" rel="noopener noreferrer">
+            <Button size="lg" variant="outline">
+              Let's Talk
+            </Button>
+          </a>
         </div>
       </div>
       <div className="hidden md:flex items-center justify-center h-full relative">
