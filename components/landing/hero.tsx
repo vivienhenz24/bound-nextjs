@@ -9,10 +9,10 @@ export function Hero() {
 
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 pb-4 md:pt-10 md:pb-8">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-0 pb-4 md:pt-0 md:pb-8 min-h-[calc(100vh-8rem)]">
       <div className="flex flex-col items-start justify-center">
         <h2 className="text-4xl md:text-5xl lg:text-7xl font-semibold text-primary mb-6 max-w-xl tracking-tight">
-          Let us prove you wrong
+          Let us prove you wrong.
         </h2>
         <p className="text-lg md:text-xl lg:text-2xl font-normal text-foreground max-w-md mb-8 tracking-tight">
           Bound verifies your auth SDKs are secure and correct before they hit production.
@@ -25,7 +25,7 @@ export function Hero() {
           </Link>
           <a href="https://calendly.com/vikrambhamre/meeting" target="_blank" rel="noopener noreferrer">
             <Button size="lg" variant="outline">
-              Let's Talk
+              Let&apos;s Talk
             </Button>
           </a>
         </div>
