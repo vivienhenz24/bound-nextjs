@@ -8,15 +8,15 @@ export function Hero() {
 
 
   return (
-    <section className="grid grid-cols-2 gap-8 pt-10 pb-24">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 pb-12 md:pt-10 md:pb-24">
       <div className="flex flex-col items-start justify-center">
-        <h2 className="text-7xl font-semibold text-primary mb-6 max-w-xl tracking-tight">
+        <h2 className="text-4xl md:text-5xl lg:text-7xl font-semibold text-primary mb-6 max-w-xl tracking-tight">
           We will prove you wrong.
         </h2>
-        <p className="text-2xl font-normal text-foreground max-w-md mb-8 tracking-tight">
+        <p className="text-lg md:text-xl lg:text-2xl font-normal text-foreground max-w-md mb-8 tracking-tight">
           Bound verifies your async CUDA kernels can&apos;t deadlock before they hit production.
         </p>
-        <div className="flex gap-4">
+        <div className="flex flex-row gap-4">
           <Button size="lg">
             Join Waitlist
           </Button>
@@ -25,14 +25,14 @@ export function Hero() {
           </Button>
         </div>
       </div>
-      <div className="flex items-center justify-center h-full relative">
+      <div className="hidden md:flex items-center justify-center h-full relative">
         <Image
           src="/logo-dark.svg"
           alt="bound logo"
           width={500}
           height={500}
           priority
-          className="w-full h-full object-contain hidden dark:block"
+          className="w-full max-w-[200px] md:max-w-[300px] lg:max-w-[400px] xl:max-w-[500px] h-auto object-contain hidden dark:block"
         />
         <Image
           src="/logo-light.svg"
@@ -40,7 +40,7 @@ export function Hero() {
           width={500}
           height={500}
           priority
-          className="w-full h-full object-contain block dark:hidden"
+          className="w-full max-w-[200px] md:max-w-[300px] lg:max-w-[400px] xl:max-w-[500px] h-auto object-contain block dark:hidden"
         />
       </div>
     </section>

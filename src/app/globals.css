@@ -122,8 +122,90 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-hikasami-sans), system-ui, sans-serif;
-    padding-left: 196px;
-    padding-right: 196px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    body {
+      padding-left: 6rem;
+      padding-right: 6rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    body {
+      padding-left: 12rem;
+      padding-right: 12rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    body {
+      padding-left: 196px;
+      padding-right: 196px;
+    }
+  }
+
+  /* Reduced padding for authenticated app routes */
+  .app-layout {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .app-layout > nav {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    width: calc(100% + 3rem);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .app-layout {
+      margin-left: -6rem;
+      margin-right: -6rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    .app-layout > nav {
+      margin-left: -1.5rem;
+      margin-right: -1.5rem;
+      width: calc(100% + 3rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .app-layout {
+      margin-left: -12rem;
+      margin-right: -12rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .app-layout > nav {
+      margin-left: -2rem;
+      margin-right: -2rem;
+      width: calc(100% + 4rem);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .app-layout {
+      margin-left: -196px;
+      margin-right: -196px;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .app-layout > nav {
+      margin-left: -2rem;
+      margin-right: -2rem;
+      width: calc(100% + 4rem);
+    }
   }
 
   input:-webkit-autofill,

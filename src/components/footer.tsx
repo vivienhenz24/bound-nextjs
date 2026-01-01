@@ -25,14 +25,6 @@ export function Footer() {
                             <Linkedin className="h-4 w-4" />
                             <span className="sr-only">LinkedIn</span>
                         </Link>
-                        <Link href="https://x.com" target="_blank" rel="noreferrer" className="text-muted-foreground/60 hover:text-foreground transition-colors">
-                            <Twitter className="h-4 w-4" />
-                            <span className="sr-only">X (Twitter)</span>
-                        </Link>
-                        <Link href="https://instagram.com" target="_blank" rel="noreferrer" className="text-muted-foreground/60 hover:text-foreground transition-colors">
-                            <Instagram className="h-4 w-4" />
-                            <span className="sr-only">Instagram</span>
-                        </Link>
                     </div>
                 </div>
             </div>
