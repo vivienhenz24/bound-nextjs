@@ -38,6 +38,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preload" href="/logo-light.svg" as="image" type="image/svg+xml" />
+        <link rel="preload" href="/logo-dark.svg" as="image" type="image/svg+xml" />
+      </head>
       <body
         className={`${hikasamiSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
