@@ -28,7 +28,8 @@ export function HowItWorks() {
             How it works*
           </h2>
           <p className="text-sm md:text-base text-muted-foreground text-center mb-12 md:mb-16 tracking-tight">
-            *We&apos;re not actually going to tell you how it works. That&apos;s our secret sauce.
+            *We&apos;re not actually going to tell you how it works because that&apos;s our secret
+            sauce ;-)
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
