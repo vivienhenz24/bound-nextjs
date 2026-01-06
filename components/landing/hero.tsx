@@ -4,26 +4,25 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
-
 export function Hero() {
-
-
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-0 pb-4 md:pt-0 md:pb-8 min-h-[calc(100vh-8rem)]">
       <div className="flex flex-col items-start justify-center">
         <h2 className="text-4xl md:text-5xl lg:text-7xl font-semibold text-primary mb-6 max-w-xl tracking-tight">
-          Let us prove you wrong.
+          They&apos;ve never seen this before.
         </h2>
-        <p className="text-lg md:text-xl lg:text-2xl font-normal text-foreground max-w-md mb-8 tracking-tight">
-          Bound verifies your auth SDKs are secure and correct before they hit production.
+        <p className="text-lg md:text-xl lg:text-2xl font-normal text-foreground max-w-lg mb-8 tracking-tight">
+          Bound is a local coding LLM that beats cloud models in what matters: your codebase.
         </p>
         <div className="flex flex-row gap-4">
           <Link href="/waitlist">
-            <Button size="lg">
-              Join Waitlist
-            </Button>
+            <Button size="lg">Join Waitlist</Button>
           </Link>
-          <a href="https://calendly.com/vikrambhamre/meeting" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://calendly.com/vikrambhamre/meeting"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Button size="lg" variant="outline">
               Let&apos;s Talk
             </Button>
@@ -51,4 +50,3 @@ export function Hero() {
     </section>
   )
 }
-

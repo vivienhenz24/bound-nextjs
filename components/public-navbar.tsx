@@ -16,16 +16,16 @@ export function PublicNavbar() {
           bound
         </Link>
         <div className="hidden md:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2">
-          <Link href="/features" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
-            Features
+          <Link
+            href="/products"
+            className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
+          >
+            Product
           </Link>
-          <Link href="/enterprise" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
-            Enterprise
-          </Link>
-          <Link href="/pricing" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
-            Pricing
-          </Link>
-          <Link href="/resources" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
+          <Link
+            href="/resources"
+            className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
+          >
             Resources
           </Link>
         </div>
@@ -41,9 +41,7 @@ export function PublicNavbar() {
           </Link>
           <ThemeToggle />
           <Link href="/login" className="hidden md:block">
-            <Button size="sm">
-              Log In
-            </Button>
+            <Button size="sm">Log In</Button>
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -54,34 +52,20 @@ export function PublicNavbar() {
           </button>
         </div>
       </div>
-      
+
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-border/40 bg-background">
           <div className="flex flex-col items-start px-4 py-4 gap-4">
-            <Link 
-              href="/features" 
+            <Link
+              href="/products"
               className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Features
+              Product
             </Link>
-            <Link 
-              href="/enterprise" 
-              className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Enterprise
-            </Link>
-            <Link 
-              href="/pricing" 
-              className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Pricing
-            </Link>
-            <Link 
-              href="/resources" 
+            <Link
+              href="/resources"
               className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -100,4 +84,3 @@ export function PublicNavbar() {
     </nav>
   )
 }
-

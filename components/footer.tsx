@@ -1,33 +1,66 @@
 import Link from "next/link"
-import { Linkedin, Twitter, Instagram } from "lucide-react"
 
 export function Footer() {
-    return (
-        <footer className="bg-background border-t border-border/40">
-            <div className="container mx-auto px-6 py-8">
-                <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
-                        <p className="text-[12px] font-medium text-muted-foreground/60 tracking-wider">
-                            &copy; 2026 BOUND.
-                        </p>
-                        <div className="flex items-center gap-8">
-                            <Link href="/privacy" className="text-[12px] font-medium text-muted-foreground/60 hover:text-foreground transition-colors tracking-tight">
-                                Privacy Policy
-                            </Link>
-                            <Link href="/terms" className="text-[12px] font-medium text-muted-foreground/60 hover:text-foreground transition-colors tracking-tight">
-                                Terms of Service
-                            </Link>
-                        </div>
-                    </div>
+  return (
+    <footer className="mt-auto">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          {/* Brand */}
+          <div className="flex flex-col gap-3">
+            <Link href="/" className="text-xl font-semibold text-primary tracking-tight">
+              bound
+            </Link>
+            <p className="text-sm text-muted-foreground max-w-xs">Your intelligence.</p>
+          </div>
 
-                    <div className="flex items-center gap-5">
-                        <Link href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-muted-foreground/60 hover:text-foreground transition-colors">
-                            <Linkedin className="h-4 w-4" />
-                            <span className="sr-only">LinkedIn</span>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    )
+          {/* Links */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-sm font-semibold text-foreground mb-1">Product</h3>
+            <Link
+              href="/products"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Overview
+            </Link>
+            <Link
+              href="/resources"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Changelog
+            </Link>
+            <Link
+              href="/waitlist"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Join Waitlist
+            </Link>
+          </div>
+
+          {/* Legal */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-sm font-semibold text-foreground mb-1">Legal</h3>
+            <Link
+              href="/privacy"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Terms of Service
+            </Link>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-8">
+          <p className="text-xs text-muted-foreground text-center">
+            &copy; 2026 Bound. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  )
 }
