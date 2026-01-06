@@ -2,37 +2,48 @@
 
 export default function ProductsView() {
   return (
-    <div className="container mx-auto px-4 py-16">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Our Products</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover our suite of tools and services designed to help you succeed
+    <div className="container mx-auto px-4 py-20">
+      <div className="max-w-3xl mx-auto">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-primary mb-12 tracking-tight">
+          Own your AI
+        </h1>
+
+        <div className="space-y-8 text-lg md:text-xl text-foreground tracking-tight">
+          <p>
+            Bound is fine-tuned directly on your repository: your source code, architecture,
+            patterns, and conventions. The result is a small, fast model that understands how your
+            system works—not how software works in general.
           </p>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Product cards will go here */}
-          <div className="border rounded-lg p-6 hover:shadow-lg transition-shadow">
-            <h3 className="text-xl font-semibold mb-2">Product 1</h3>
-            <p className="text-muted-foreground mb-4">
-              Description of your first product or service
-            </p>
-          </div>
+          <p>
+            You own the model. Bound runs locally on your machine. There&apos;s no data leaving your
+            environment, no recurring cloud bill, and no dependency on external vendors. You control
+            the model, the training data, and the deployment.
+          </p>
 
-          <div className="border rounded-lg p-6 hover:shadow-lg transition-shadow">
-            <h3 className="text-xl font-semibold mb-2">Product 2</h3>
-            <p className="text-muted-foreground mb-4">
-              Description of your second product or service
-            </p>
-          </div>
+          <p>
+            Because Bound is specialized, it performs better on repo-specific tasks than large cloud
+            models:
+          </p>
 
-          <div className="border rounded-lg p-6 hover:shadow-lg transition-shadow">
-            <h3 className="text-xl font-semibold mb-2">Product 3</h3>
-            <p className="text-muted-foreground mb-4">
-              Description of your third product or service
-            </p>
-          </div>
+          <ul className="list-disc list-inside space-y-2 ml-4">
+            <li>navigating unfamiliar parts of the codebase</li>
+            <li>making safe, consistent edits</li>
+            <li>following internal abstractions and style</li>
+            <li>understanding project-specific APIs and invariants</li>
+          </ul>
+
+          <p>
+            Bound is not trying to be a general assistant. It&apos;s built to be the best possible
+            model for one thing: your codebase.
+          </p>
+
+          <p>
+            This makes it especially effective for teams with large or long-lived repositories,
+            strict correctness requirements, or sensitivity around IP and cost. Instead of prompting
+            a general model and hoping it infers context, you start with a model that already has
+            it.
+          </p>
         </div>
       </div>
     </div>

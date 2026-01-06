@@ -23,12 +23,6 @@ export function PublicNavbar() {
             Product
           </Link>
           <Link
-            href="/pricing"
-            className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
-          >
-            Pricing
-          </Link>
-          <Link
             href="/resources"
             className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
           >
@@ -69,13 +63,6 @@ export function PublicNavbar() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Product
-            </Link>
-            <Link
-              href="/pricing"
-              className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Pricing
             </Link>
             <Link
               href="/resources"

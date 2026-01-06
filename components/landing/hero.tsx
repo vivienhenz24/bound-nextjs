@@ -9,10 +9,10 @@ export function Hero() {
     <section className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-0 pb-4 md:pt-0 md:pb-8 min-h-[calc(100vh-8rem)]">
       <div className="flex flex-col items-start justify-center">
         <h2 className="text-4xl md:text-5xl lg:text-7xl font-semibold text-primary mb-6 max-w-xl tracking-tight">
-          Let us prove you wrong.
+          They&apos;ve never seen this before.
         </h2>
-        <p className="text-lg md:text-xl lg:text-2xl font-normal text-foreground max-w-md mb-8 tracking-tight">
-          Bound provides a small local LLM expert in doing formal verification using Rosette.
+        <p className="text-lg md:text-xl lg:text-2xl font-normal text-foreground max-w-lg mb-8 tracking-tight">
+          Bound is a local coding LLM that beats cloud models in what matters: your codebase.
         </p>
         <div className="flex flex-row gap-4">
           <Link href="/waitlist">
