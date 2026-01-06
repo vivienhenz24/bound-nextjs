@@ -24,9 +24,12 @@ export function HowItWorks() {
     <section className="py-20 md:py-32">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-primary mb-12 md:mb-16 text-center tracking-tight">
-            How it works
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-primary mb-4 text-center tracking-tight">
+            How it works*
           </h2>
+          <p className="text-sm md:text-base text-muted-foreground text-center mb-12 md:mb-16 tracking-tight">
+            *We&apos;re not actually going to tell you how it works. That&apos;s our secret sauce.
+          </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
             {steps.map((step) => (
