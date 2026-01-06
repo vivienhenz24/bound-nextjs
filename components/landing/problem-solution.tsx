@@ -20,8 +20,8 @@ export function ProblemSolution() {
               The Solution
             </h3>
             <p className="text-base md:text-lg text-foreground tracking-tight leading-relaxed">
-              Bound is trained on your repository. A small, fast model that runs locally. No context
-              window limits. No recurring costs. Just a model that knows your system.
+              Bound is trained on your repository. A small, fast model that runs locally. No cloud
+              bill. Just a model that knows your system.
             </p>
           </div>
         </div>

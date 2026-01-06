@@ -25,6 +25,8 @@ export function CustomerRow() {
               key={university.name}
               src={university.logo}
               alt={university.name}
+              width={100}
+              height={48}
               className="h-10 md:h-12 w-auto object-contain brightness-0 dark:invert"
             />
           ))}
