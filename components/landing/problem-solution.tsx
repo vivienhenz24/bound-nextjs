@@ -9,8 +9,9 @@ export function ProblemSolution() {
               The Problem
             </h3>
             <p className="text-base md:text-lg text-foreground tracking-tight leading-relaxed">
-              General AI models know thousands of languages and frameworks—but they don&apos;t know
-              your codebase. Every prompt requires context. Every suggestion needs validation.
+              Cloud-based autocomplete sends your code to external servers every time you type,
+              requires ongoing subscriptions, and suggests generic patterns that don&apos;t match
+              your codebase.
             </p>
           </div>
 
@@ -20,8 +21,9 @@ export function ProblemSolution() {
               The Solution
             </h3>
             <p className="text-base md:text-lg text-foreground tracking-tight leading-relaxed">
-              Bound is trained on your repository. A small, fast model that runs locally. No cloud
-              bill. Just a model that knows your system.
+              Bound fine-tunes on your repository, then runs locally. Get autocomplete suggestions
+              that match your patterns and conventions with no ongoing cloud costs or data
+              transmission.
             </p>
           </div>
         </div>
