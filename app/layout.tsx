@@ -1,8 +1,8 @@
-import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
-import { Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
+import type { Metadata, Viewport } from "next"
+import localFont from "next/font/local"
+import { Geist_Mono } from "next/font/google"
+import "./globals.css"
+import { ThemeProvider } from "@/components/theme-provider"
 
 const hikasamiSans = localFont({
   src: "../fonts/variable/Hikasami-VF.woff2",
@@ -10,12 +10,12 @@ const hikasamiSans = localFont({
   display: "swap",
   weight: "100 900",
   fallback: ["system-ui", "arial"],
-});
+})
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
+})
 
 export const metadata: Metadata = {
   title: "bound",
@@ -23,18 +23,18 @@ export const metadata: Metadata = {
   icons: {
     icon: "/logo-icon.svg",
   },
-};
+}
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -55,5 +55,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

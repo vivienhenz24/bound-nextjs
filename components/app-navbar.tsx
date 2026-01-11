@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/navigation-menu"
 
 export function AppNavbar() {
-
   return (
     <nav className="sticky top-0 z-50 w-full bg-background">
       <div className="flex h-16 items-center justify-between px-4 md:px-6">
@@ -48,4 +47,3 @@ export function AppNavbar() {
     </nav>
   )
 }
-
