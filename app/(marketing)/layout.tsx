@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation"
 import { PublicNavbar } from "@/components/public-navbar"
 import { Footer } from "@/components/footer"
 
@@ -9,8 +9,8 @@ export default function MarketingLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const pathname = usePathname();
-  const isResourcesPage = pathname === "/resources";
+  const pathname = usePathname()
+  const isResourcesPage = pathname === "/resources"
 
   return (
     <>
@@ -20,4 +20,3 @@ export default function MarketingLayout({
     </>
   )
 }
-

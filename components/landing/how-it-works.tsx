@@ -2,21 +2,20 @@ export function HowItWorks() {
   const steps = [
     {
       number: "01",
-      title: "Train",
-      description:
-        "We fine-tune a model directly on your repository. Your code, your patterns, your conventions.",
+      title: "Upload",
+      description: "Send your repository to our secure cloud infrastructure for model training.",
     },
     {
       number: "02",
-      title: "Deploy",
+      title: "Train",
       description:
-        "The model runs locally on your machine. Your data never leaves your environment.",
+        "We fine-tune a model on your codebase using cloud GPUs, learning your patterns and conventions.",
     },
     {
       number: "03",
-      title: "Use",
+      title: "Deploy",
       description:
-        "Navigate, edit, and understand your codebase with a model that already knows how it works.",
+        "Download your personalized model to run locally. Fast autocomplete with no ongoing cloud dependency.",
     },
   ]
 

@@ -10,39 +10,35 @@ export default function ProductsView() {
 
         <div className="space-y-8 text-lg md:text-xl text-foreground tracking-tight">
           <p>
-            Bound is fine-tuned directly on your repository: your source code, architecture,
-            patterns, and conventions. The result is a small, fast model that understands how your
-            system works—not how software works in general.
+            Bound fine-tunes a model specifically on your repository using cloud GPUs, then delivers
+            that personalized model to run locally on your machine. You get autocomplete suggestions
+            that reflect your patterns, naming conventions, and architecture.
           </p>
 
           <p>
-            You own the model. Bound runs locally on your machine. There&apos;s no data leaving your
-            environment, no recurring cloud bill, and no dependency on external vendors. You control
-            the model, the training data, and the deployment.
+            Once trained, the model runs entirely on your machine. No ongoing cloud subscription for
+            inference, no code leaving your environment during daily use, and no latency from
+            network calls. Fast, predictable autocomplete that works offline.
           </p>
 
-          <p>
-            Because Bound is specialized, it performs better on repo-specific tasks than large cloud
-            models:
-          </p>
+          <p>Because it&apos;s trained on your specific repo, Bound excels at:</p>
 
           <ul className="list-disc list-inside space-y-2 ml-4">
-            <li>navigating unfamiliar parts of the codebase</li>
-            <li>making safe, consistent edits</li>
-            <li>following internal abstractions and style</li>
-            <li>understanding project-specific APIs and invariants</li>
+            <li>following your naming conventions and code style</li>
+            <li>understanding your internal abstractions and patterns</li>
+            <li>completing with your project-specific APIs and types</li>
+            <li>maintaining consistency across your codebase</li>
           </ul>
 
           <p>
-            Bound is not trying to be a general assistant. It&apos;s built to be the best possible
-            model for one thing: your codebase.
+            Think Cursor&apos;s tab completion, but personalized to your repo and usable offline.
+            The goal isn&apos;t to replace large cloud models—it&apos;s to beat them on one narrow
+            thing: fast, accurate autocomplete for your specific codebase.
           </p>
 
           <p>
-            This makes it especially effective for teams with large or long-lived repositories,
-            strict correctness requirements, or sensitivity around IP and cost. Instead of prompting
-            a general model and hoping it infers context, you start with a model that already has
-            it.
+            Especially effective for teams with established codebases who want autocomplete that
+            reflects their actual development patterns, not generic GitHub code.
           </p>
         </div>
       </div>
