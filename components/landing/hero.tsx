@@ -1,26 +1,16 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { SearchBar } from "@/components/landing/search-bar"
 
 export function Hero() {
   return (
-    <section className="flex flex-col items-center justify-center text-center min-h-[calc(100vh-4rem)] px-4">
+    <section className="flex flex-col items-center text-center px-4 pt-32 md:pt-40 pb-20">
       <h2 className="text-4xl md:text-5xl lg:text-7xl font-semibold text-primary mb-6 max-w-3xl tracking-tight">
-        Speak your price.
+        Go local or go home.
       </h2>
       <p className="text-lg md:text-xl lg:text-2xl font-normal text-foreground max-w-3xl mb-8 tracking-tight">
-        Bound is a marketplace for specialized local TTS models. Monetize your model or buy licenses
-        for ones made for your needs.
+        Bound is a marketplace for specialized local coding models. Monetize your fine-tuned model
+        or find one built for your stack.
       </p>
-      <div className="flex flex-row gap-4">
-        <Link href="/waitlist">
-          <Button size="lg">Sign Up</Button>
-        </Link>
-        <Link href="/login">
-          <Button size="lg" variant="outline">
-            Log In
-          </Button>
-        </Link>
-      </div>
+      <SearchBar />
     </section>
   )
 }
