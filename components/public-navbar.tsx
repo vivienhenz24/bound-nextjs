@@ -19,6 +19,12 @@ export function PublicNavbar() {
           </Link>
           <div className="hidden md:flex items-center gap-6">
             <Link
+              href="/models"
+              className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
+            >
+              Models
+            </Link>
+            <Link
               href="/pricing"
               className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
             >
@@ -63,6 +69,13 @@ export function PublicNavbar() {
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-border/40 bg-background">
           <div className="flex flex-col items-start px-4 py-4 gap-4">
+            <Link
+              href="/models"
+              className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Models
+            </Link>
             <Link
               href="/pricing"
               className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
