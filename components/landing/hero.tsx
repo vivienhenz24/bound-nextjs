@@ -1,5 +1,3 @@
-import { SearchBar } from "@/components/landing/search-bar"
-
 export function Hero() {
   return (
     <section className="flex flex-col items-center text-center px-4 pt-32 md:pt-40 pb-20">
@@ -10,7 +8,6 @@ export function Hero() {
         Bound is a marketplace for specialized local coding models. Monetize your fine-tuned model
         or find one built for your stack.
       </p>
-      <SearchBar />
     </section>
   )
 }
