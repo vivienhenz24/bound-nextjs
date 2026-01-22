@@ -5,7 +5,7 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Block access to dashboard - redirect to home page
-  if (pathname.startsWith("/dashboard")) {
+  if (pathname.startsWith("/misc")) {
     return NextResponse.redirect(new URL("/", request.url))
   }
 
@@ -14,5 +14,5 @@ export function proxy(request: NextRequest) {
 
 // Protect dashboard routes
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ["/misc/:path*"],
 }
