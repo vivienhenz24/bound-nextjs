@@ -8,7 +8,7 @@ export type NavItem = {
 
 export const mainNavItems: NavItem[] = [
   { title: "Home", href: "/dashboard", icon: LayoutDashboard },
-  { title: "Catalog", href: "/catalog", icon: BookAudio },
+  { title: "Libary", href: "/libary", icon: BookAudio },
   { title: "My Models", href: "/my-models", icon: LayersPlus },
 ]
 
