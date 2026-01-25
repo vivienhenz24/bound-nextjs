@@ -11,7 +11,7 @@ export function PublicNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-background">
+    <nav className="relative sticky top-0 z-50 w-full bg-background">
       <div className="flex h-16 items-center justify-between px-4 md:px-0">
         <div className="flex items-center gap-8">
           <Link href="/" className="text-xl md:text-2xl font-semibold text-primary tracking-tight">
@@ -19,20 +19,20 @@ export function PublicNavbar() {
           </Link>
           <div className="hidden md:flex items-center gap-6">
             <Link
+              href="/models"
+              className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
+            >
+              Models
+            </Link>
+            <Link
               href="/pricing"
               className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
             >
               Pricing
             </Link>
-            <Link
-              href="/resources"
-              className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
-            >
-              Resources
-            </Link>
           </div>
         </div>
-        <div className="hidden md:flex flex-1 justify-center max-w-md mx-8">
+        <div className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-96">
           <SearchBar />
         </div>
         <div className="flex items-center gap-2">
@@ -64,18 +64,18 @@ export function PublicNavbar() {
         <div className="md:hidden border-t border-border/40 bg-background">
           <div className="flex flex-col items-start px-4 py-4 gap-4">
             <Link
+              href="/models"
+              className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Models
+            </Link>
+            <Link
               href="/pricing"
               className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Pricing
-            </Link>
-            <Link
-              href="/resources"
-              className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Resources
             </Link>
             <div className="pt-2 w-full">
               <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="w-full">

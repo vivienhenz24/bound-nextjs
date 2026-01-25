@@ -106,31 +106,31 @@
 
 .dark {
   /* Core palette */
-  --background: oklch(0.13 0.02 270);
-  --foreground: oklch(0.985 0 0);
+  --background: #212121;
+  --foreground: #ffffff;
 
   /* Surfaces */
-  --card: oklch(0.18 0.015 270);
+  --card: #303030;
   --card-foreground: var(--foreground);
   --popover: var(--card);
   --popover-foreground: var(--foreground);
 
   /* Primary/Accent - neutral for dark mode */
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --accent: oklch(0.22 0.015 270);
+  --primary: #ffffff;
+  --primary-foreground: #0d0d0d;
+  --accent: #414141;
   --accent-foreground: var(--foreground);
 
   /* Secondary/Muted */
-  --secondary: oklch(0.18 0.015 270);
+  --secondary: #303030;
   --secondary-foreground: var(--foreground);
-  --muted: oklch(0.22 0.015 270);
-  --muted-foreground: oklch(0.65 0 0);
+  --muted: #414141;
+  --muted-foreground: #afafaf;
 
   /* Borders & inputs */
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --border: #ffffff26;
+  --input: #ffffff1a;
+  --ring: #ffffff40;
 
   /* Destructive */
   --destructive: oklch(0.704 0.191 22.216);
@@ -143,9 +143,9 @@
   --chart-5: oklch(0.645 0.246 16.439);
 
   /* Sidebar - reference main tokens */
-  --sidebar: oklch(0.16 0.015 270);
+  --sidebar: #171717;
   --sidebar-foreground: var(--foreground);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary: #303030;
   --sidebar-primary-foreground: var(--foreground);
   --sidebar-accent: var(--muted);
   --sidebar-accent-foreground: var(--foreground);
@@ -161,31 +161,12 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-hikasami-sans), system-ui, sans-serif;
+  }
+
+  /* Marketing/public pages get the wide padding */
+  .marketing-layout {
     padding-left: var(--page-padding);
     padding-right: var(--page-padding);
-  }
-
-  /* Reduced padding for authenticated app routes */
-  .app-layout {
-    --app-padding: 1.5rem;
-    margin-left: calc(-1 * var(--page-padding));
-    margin-right: calc(-1 * var(--page-padding));
-    padding-left: var(--app-padding);
-    padding-right: var(--app-padding);
-  }
-
-  .app-layout > nav {
-    margin-left: calc(-1 * var(--app-padding));
-    margin-right: calc(-1 * var(--app-padding));
-    width: calc(100% + 2 * var(--app-padding));
-    padding-left: var(--app-padding);
-    padding-right: var(--app-padding);
-  }
-
-  @media (min-width: 1024px) {
-    .app-layout {
-      --app-padding: 2rem;
-    }
   }
 
   input:-webkit-autofill,
