@@ -14,6 +14,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { mainNavItems, isNavItemActive } from "@/components/(app)/nav-config"
@@ -37,7 +40,10 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {mainNavItems.map((item) => {
-                const isActive = isNavItemActive(pathname, item.href)
+                const hasSubItems = item.items && item.items.length > 0
+                const isActive = hasSubItems
+                  ? pathname === item.href
+                  : isNavItemActive(pathname, item.href)
                 return (
                   <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton asChild isActive={isActive} tooltip={item.title}>
@@ -46,6 +52,25 @@ export function AppSidebar() {
                         <span>{item.title}</span>
                       </Link>
                     </SidebarMenuButton>
+                    {hasSubItems ? (
+                      <SidebarMenuSub>
+                        {item.items?.map((subItem) => {
+                          const isSubActive = isNavItemActive(pathname, subItem.href)
+                          return (
+                            <SidebarMenuSubItem key={subItem.href}>
+                              <SidebarMenuSubButton asChild isActive={isSubActive}>
+                                <Link
+                                  href={subItem.href}
+                                  className={cn(!isSubActive && "text-muted-foreground")}
+                                >
+                                  <span>{subItem.title}</span>
+                                </Link>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          )
+                        })}
+                      </SidebarMenuSub>
+                    ) : null}
                   </SidebarMenuItem>
                 )
               })}
