@@ -1,18 +1,34 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field"
 import { Checkbox } from "@/components/ui/checkbox"
 
+// Hardcoded credentials for development
+const DEV_EMAIL = "vhenz@college.harvard.edu"
+const DEV_PASSWORD = "123456"
+
 export function LoginForm() {
+  const router = useRouter()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [error, setError] = useState("")
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setError("Invalid email or password. Please check your credentials and try again.")
+    setError("")
+
+    if (email === DEV_EMAIL && password === DEV_PASSWORD) {
+      // Set auth cookie and redirect
+      document.cookie = "dev_authenticated=true; path=/; max-age=604800" // 7 days
+      router.push("/")
+    } else {
+      setError("Invalid email or password. Please check your credentials and try again.")
+    }
   }
 
   const handleGoogleSignIn = (e: React.MouseEvent) => {
@@ -50,6 +66,8 @@ export function LoginForm() {
                 type="email"
                 placeholder="name@company.com"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="h-11 bg-secondary/30 border-border/50 focus-visible:ring-0 focus-visible:border-primary transition-colors rounded-[var(--radius)]"
               />
             </Field>
@@ -72,6 +90,8 @@ export function LoginForm() {
                 id="password"
                 type="password"
                 required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="h-11 bg-secondary/30 border-border/50 focus-visible:ring-0 focus-visible:border-primary transition-colors rounded-[var(--radius)]"
               />
             </Field>

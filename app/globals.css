@@ -161,31 +161,12 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-hikasami-sans), system-ui, sans-serif;
+  }
+
+  /* Marketing/public pages get the wide padding */
+  .marketing-layout {
     padding-left: var(--page-padding);
     padding-right: var(--page-padding);
-  }
-
-  /* Reduced padding for authenticated app routes */
-  .app-layout {
-    --app-padding: 1.5rem;
-    margin-left: calc(-1 * var(--page-padding));
-    margin-right: calc(-1 * var(--page-padding));
-    padding-left: var(--app-padding);
-    padding-right: var(--app-padding);
-  }
-
-  .app-layout > nav {
-    margin-left: calc(-1 * var(--app-padding));
-    margin-right: calc(-1 * var(--app-padding));
-    width: calc(100% + 2 * var(--app-padding));
-    padding-left: var(--app-padding);
-    padding-right: var(--app-padding);
-  }
-
-  @media (min-width: 1024px) {
-    .app-layout {
-      --app-padding: 2rem;
-    }
   }
 
   input:-webkit-autofill,
