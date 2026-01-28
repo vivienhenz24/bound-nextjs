@@ -45,12 +45,12 @@ export function PublicNavbar() {
             <span className="sr-only">GitHub</span>
           </Link>
           <Link href="/waitlist" className="hidden md:block">
-            <Button size="sm" variant="outline">
-              Sign Up
-            </Button>
+            <Button size="sm">Sign Up</Button>
           </Link>
           <Link href="/login" className="hidden md:block">
-            <Button size="sm">Log In</Button>
+            <Button size="sm" variant="outline">
+              Log In
+            </Button>
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -82,12 +82,12 @@ export function PublicNavbar() {
             </Link>
             <div className="pt-2 w-full flex flex-col gap-2">
               <Link href="/waitlist" onClick={() => setMobileMenuOpen(false)} className="w-full">
-                <Button size="sm" variant="outline" className="w-full">
+                <Button size="sm" className="w-full">
                   Sign Up
                 </Button>
               </Link>
               <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="w-full">
-                <Button size="sm" className="w-full">
+                <Button size="sm" variant="outline" className="w-full">
                   Log In
                 </Button>
               </Link>

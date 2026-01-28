@@ -55,7 +55,7 @@
   --brand: oklch(0 0 0);
 
   /* Core palette */
-  --background: oklch(1 0 0);
+  --background: oklch(0.985 0 0);
   --foreground: oklch(0.145 0 0);
 
   /* Surfaces - reference background */
@@ -115,7 +115,7 @@
   --popover: var(--card);
   --popover-foreground: var(--foreground);
 
-  /* Primary/Accent - neutral for dark mode */
+  /* Primary/Accent - mint for dark mode */
   --primary: #ffffff;
   --primary-foreground: #0d0d0d;
   --accent: #414141;

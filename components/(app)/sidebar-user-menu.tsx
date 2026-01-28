@@ -74,7 +74,7 @@ export function SidebarUserMenu() {
             id="sidebar-user-panel"
             role="menu"
             data-state={open ? "open" : "closed"}
-            className="bg-sidebar text-sidebar-foreground border-sidebar-border absolute inset-x-0 bottom-full z-10 mb-2 overflow-hidden rounded-lg border shadow-sm transition-[transform,opacity] duration-200 ease-out data-[state=closed]:pointer-events-none data-[state=closed]:translate-y-2 data-[state=closed]:opacity-0"
+            className="bg-sidebar text-sidebar-foreground border-sidebar-border absolute inset-x-0 bottom-full z-10 mb-2 overflow-hidden rounded-lg border transition-[transform,opacity] duration-200 ease-out data-[state=closed]:pointer-events-none data-[state=closed]:translate-y-2 data-[state=closed]:opacity-0"
           >
             <div className="px-3 pt-3 pb-2 text-xs font-medium tracking-wide text-muted-foreground">
               Account
