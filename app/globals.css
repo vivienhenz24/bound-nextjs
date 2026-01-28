@@ -52,7 +52,7 @@
   --page-padding: 96px;
 
   /* Brand color */
-  --brand: oklch(0 0 0);
+  --brand: #0f172a;
 
   /* Core palette */
   --background: oklch(0.985 0 0);
@@ -115,7 +115,7 @@
   --popover: var(--card);
   --popover-foreground: var(--foreground);
 
-  /* Primary/Accent - mint for dark mode */
+  /* Primary/Accent - neutral for dark mode */
   --primary: #ffffff;
   --primary-foreground: #0d0d0d;
   --accent: #414141;
