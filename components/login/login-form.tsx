@@ -3,11 +3,17 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useAuth } from "@/hooks/use-auth"
+
+const loginSchema = z.object({
+  email: z.string().trim().email("Enter a valid email address."),
+  password: z.string().min(1, "Password is required."),
+})
 
 export function LoginForm() {
   const router = useRouter()
@@ -23,7 +29,14 @@ export function LoginForm() {
     setLoading(true)
 
     try {
-      await login(email, password)
+      const parsed = loginSchema.safeParse({ email, password })
+      if (!parsed.success) {
+        setError(parsed.error.issues[0]?.message ?? "Invalid form input.")
+        setLoading(false)
+        return
+      }
+
+      await login(parsed.data.email, parsed.data.password)
       router.push("/dashboard")
     } catch (err) {
       setError("Invalid email or password. Please check your credentials and try again.")
@@ -46,11 +59,16 @@ export function LoginForm() {
         </p>
       </div>
 
-      {error && (
-        <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20">
-          <p className="text-sm font-medium text-destructive tracking-tight">{error}</p>
-        </div>
-      )}
+      <div
+        aria-live="polite"
+        className="min-h-[56px] rounded-lg border border-transparent px-4 py-3 transition-colors"
+      >
+        {error && (
+          <div className="rounded-lg bg-destructive/10 border border-destructive/20 p-4 -mx-4 -my-3">
+            <p className="text-sm font-medium text-destructive tracking-tight">{error}</p>
+          </div>
+        )}
+      </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <FieldSet>

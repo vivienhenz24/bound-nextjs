@@ -3,10 +3,24 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field"
 import { useAuth } from "@/hooks/use-auth"
+
+const signupSchema = z
+  .object({
+    email: z.string().trim().email("Enter a valid email address."),
+    password: z.string().min(8, "Password must be at least 8 characters long."),
+    confirmPassword: z.string().min(1, "Confirm your password."),
+    firstName: z.string().trim().optional(),
+    lastName: z.string().trim().optional(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match. Please try again.",
+    path: ["confirmPassword"],
+  })
 
 export function SignupForm() {
   const router = useRouter()
@@ -23,26 +37,30 @@ export function SignupForm() {
     e.preventDefault()
     setError("")
 
-    // Validate passwords match
-    if (password !== confirmPassword) {
-      setError("Passwords do not match. Please try again.")
-      return
-    }
+    const parsed = signupSchema.safeParse({
+      email,
+      password,
+      confirmPassword,
+      firstName,
+      lastName,
+    })
 
-    // Validate password length
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters long.")
+    if (!parsed.success) {
+      setError(parsed.error.issues[0]?.message ?? "Invalid form input.")
       return
     }
 
     setLoading(true)
 
     try {
+      const normalizedFirstName = parsed.data.firstName?.trim()
+      const normalizedLastName = parsed.data.lastName?.trim()
+
       await register({
-        email,
-        password,
-        first_name: firstName || undefined,
-        last_name: lastName || undefined,
+        email: parsed.data.email,
+        password: parsed.data.password,
+        first_name: normalizedFirstName ? normalizedFirstName : undefined,
+        last_name: normalizedLastName ? normalizedLastName : undefined,
       })
 
       // Redirect to login after successful registration
@@ -68,11 +86,16 @@ export function SignupForm() {
         </p>
       </div>
 
-      {error && (
-        <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20">
-          <p className="text-sm font-medium text-destructive tracking-tight">{error}</p>
-        </div>
-      )}
+      <div
+        aria-live="polite"
+        className="min-h-[56px] rounded-lg border border-transparent px-4 py-3 transition-colors"
+      >
+        {error && (
+          <div className="rounded-lg bg-destructive/10 border border-destructive/20 p-4 -mx-4 -my-3">
+            <p className="text-sm font-medium text-destructive tracking-tight">{error}</p>
+          </div>
+        )}
+      </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <FieldSet>
