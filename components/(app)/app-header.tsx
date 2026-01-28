@@ -7,7 +7,6 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { SearchBar } from "@/components/landing/search-bar"
 import { Button } from "@/components/ui/button"
 import { mainNavItems, isNavItemActive } from "@/components/(app)/nav-config"
-import { UserMenu } from "@/components/(app)/user-menu"
 
 export function AppHeader() {
   const pathname = usePathname()
@@ -30,7 +29,6 @@ export function AppHeader() {
           Support
         </Button>
         <ThemeToggle />
-        <UserMenu />
       </div>
     </header>
   )

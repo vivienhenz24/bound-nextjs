@@ -3,25 +3,13 @@
 import * as React from "react"
 import { ChevronsUpDown, LogOut, CreditCard, User } from "lucide-react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar"
-
-// Placeholder user data - replace with actual user data from your auth system
-const user = {
-  firstName: "Vivien",
-}
+import { useAuth } from "@/hooks/use-auth"
 
 export function SidebarUserMenu() {
-  const router = useRouter()
+  const { user, logout } = useAuth()
   const [open, setOpen] = React.useState(false)
   const containerRef = React.useRef<HTMLDivElement>(null)
-
-  const handleLogout = () => {
-    setOpen(false)
-    document.cookie = "dev_authenticated=; path=/; max-age=0"
-    router.push("/")
-    router.refresh()
-  }
 
   React.useEffect(() => {
     if (!open) return
@@ -48,6 +36,17 @@ export function SidebarUserMenu() {
     }
   }, [open])
 
+  if (!user) return null
+
+  const displayName = [user.first_name, user.last_name].filter(Boolean).join(" ") || user.email
+  const initialsSource = displayName || user.email
+  const initial = initialsSource.trim().charAt(0).toUpperCase()
+
+  const handleLogout = async () => {
+    setOpen(false)
+    await logout()
+  }
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -60,10 +59,11 @@ export function SidebarUserMenu() {
             aria-controls="sidebar-user-panel"
           >
             <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <span className="text-sm font-semibold">{user.firstName[0]}</span>
+              <span className="text-sm font-semibold">{initial}</span>
             </div>
             <div className="grid flex-1 text-left text-sm leading-tight group-data-[collapsible=icon]:hidden">
-              <span className="truncate font-medium">{user.firstName}</span>
+              <span className="truncate font-medium">{displayName}</span>
+              <span className="truncate text-xs text-muted-foreground">{user.email}</span>
             </div>
             <ChevronsUpDown
               className="ml-auto size-4 transition-transform group-data-[collapsible=icon]:hidden data-[state=open]:rotate-180"

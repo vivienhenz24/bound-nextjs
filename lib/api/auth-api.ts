@@ -3,27 +3,23 @@ import type { LoginData, LoginResponse, RegisterData, User } from "../types/auth
 
 export const authApi = {
   register: async (data: RegisterData): Promise<{ message: string }> => {
-    const response = await apiClient.post("/auth/register", data)
-    return response.data
+    return await apiClient.post<{ message: string }>("/auth/register", data)
   },
 
   login: async (data: LoginData): Promise<LoginResponse> => {
-    const response = await apiClient.post("/auth/login", data)
-    return response.data
+    return await apiClient.post<LoginResponse>("/auth/login", data)
   },
 
   logout: async (): Promise<{ message: string }> => {
-    const response = await apiClient.post("/auth/logout")
-    return response.data
+    return await apiClient.post<{ message: string }>("/auth/logout")
   },
 
-  getCurrentUser: async (): Promise<User> => {
-    const response = await apiClient.get("/auth/me")
-    return response.data
+  getCurrentUser: async (): Promise<User | null> => {
+    const response = await apiClient.get<User | null>("/auth/me")
+    return response ?? null
   },
 
   refreshToken: async (): Promise<LoginResponse> => {
-    const response = await apiClient.post("/auth/refresh")
-    return response.data
+    return await apiClient.post<LoginResponse>("/auth/refresh")
   },
 }
