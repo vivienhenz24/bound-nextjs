@@ -4,7 +4,6 @@ import { useState } from "react"
 import Link from "next/link"
 import { Github, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { SearchBar } from "@/components/landing/search-bar"
 
 export function PublicNavbar() {
@@ -45,7 +44,11 @@ export function PublicNavbar() {
             <Github className="h-5 w-5" />
             <span className="sr-only">GitHub</span>
           </Link>
-          <ThemeToggle />
+          <Link href="/waitlist" className="hidden md:block">
+            <Button size="sm" variant="outline">
+              Sign Up
+            </Button>
+          </Link>
           <Link href="/login" className="hidden md:block">
             <Button size="sm">Log In</Button>
           </Link>
@@ -77,7 +80,12 @@ export function PublicNavbar() {
             >
               Pricing
             </Link>
-            <div className="pt-2 w-full">
+            <div className="pt-2 w-full flex flex-col gap-2">
+              <Link href="/waitlist" onClick={() => setMobileMenuOpen(false)} className="w-full">
+                <Button size="sm" variant="outline" className="w-full">
+                  Sign Up
+                </Button>
+              </Link>
               <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="w-full">
                 <Button size="sm" className="w-full">
                   Log In
