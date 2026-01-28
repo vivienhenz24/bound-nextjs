@@ -7,33 +7,34 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field"
 import { Checkbox } from "@/components/ui/checkbox"
-
-// Hardcoded credentials for development
-const DEV_EMAIL = "vhenz@college.harvard.edu"
-const DEV_PASSWORD = "123456"
+import { useAuth } from "@/hooks/use-auth"
 
 export function LoginForm() {
   const router = useRouter()
+  const { login } = useAuth()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
+    setLoading(true)
 
-    if (email === DEV_EMAIL && password === DEV_PASSWORD) {
-      // Set auth cookie and redirect
-      document.cookie = "dev_authenticated=true; path=/; max-age=604800" // 7 days
-      router.push("/")
-    } else {
+    try {
+      await login(email, password)
+      router.push("/dashboard")
+    } catch (err) {
       setError("Invalid email or password. Please check your credentials and try again.")
+    } finally {
+      setLoading(false)
     }
   }
 
   const handleGoogleSignIn = (e: React.MouseEvent) => {
     e.preventDefault()
-    setError("Unable to authenticate with Google. Please try again or use email/password.")
+    setError("Google Sign-In coming soon. Please use email/password for now.")
   }
 
   return (
@@ -108,10 +109,15 @@ export function LoginForm() {
         </FieldSet>
 
         <div className="flex flex-col gap-3">
-          <Button type="submit" className="w-full h-11">
-            Continue
+          <Button type="submit" className="w-full h-11" disabled={loading}>
+            {loading ? "Signing in..." : "Continue"}
           </Button>
-          <Button variant="outline" className="w-full h-11" onClick={handleGoogleSignIn}>
+          <Button
+            variant="outline"
+            className="w-full h-11"
+            onClick={handleGoogleSignIn}
+            type="button"
+          >
             Sign in with Google
           </Button>
         </div>
@@ -119,8 +125,8 @@ export function LoginForm() {
 
       <div className="text-center text-[13px] font-medium text-muted-foreground/60">
         Don&apos;t have an account?{" "}
-        <Link href="/waitlist" className="text-primary hover:underline underline-offset-4">
-          Join the waitlist
+        <Link href="/signup" className="text-primary hover:underline underline-offset-4">
+          Sign up
         </Link>
       </div>
     </div>

@@ -35,7 +35,7 @@ export function PublicNavbar() {
           <SearchBar />
         </div>
         <div className="flex items-center gap-2">
-          <Link href="/waitlist" className="hidden md:block">
+          <Link href="/signup" className="hidden md:block">
             <Button size="sm">Sign Up</Button>
           </Link>
           <Link href="/login" className="hidden md:block">
@@ -72,7 +72,7 @@ export function PublicNavbar() {
               Pricing
             </Link>
             <div className="pt-2 w-full flex flex-col gap-2">
-              <Link href="/waitlist" onClick={() => setMobileMenuOpen(false)} className="w-full">
+              <Link href="/signup" onClick={() => setMobileMenuOpen(false)} className="w-full">
                 <Button size="sm" className="w-full">
                   Sign Up
                 </Button>

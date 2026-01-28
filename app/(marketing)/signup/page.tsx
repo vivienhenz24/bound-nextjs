@@ -1,13 +1,11 @@
 "use client"
 
 import { useEffect } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { LoginForm } from "@/components/login/login-form"
+import { useRouter } from "next/navigation"
+import { SignupForm } from "@/components/signup/signup-form"
 import { useAuth } from "@/hooks/use-auth"
 
-export default function LoginPage() {
-  const searchParams = useSearchParams()
-  const registered = searchParams?.get("registered")
+export default function SignupPage() {
   const { isAuthenticated, loading } = useAuth()
   const router = useRouter()
 
@@ -34,14 +32,7 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-background">
       <div className="w-full max-w-[440px] px-4 md:px-6 py-8 md:py-12">
-        {registered && (
-          <div className="mb-6 p-4 rounded-lg bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800">
-            <p className="text-sm font-medium text-green-800 dark:text-green-200 tracking-tight">
-              Registration successful! Please sign in with your credentials.
-            </p>
-          </div>
-        )}
-        <LoginForm />
+        <SignupForm />
       </div>
     </div>
   )

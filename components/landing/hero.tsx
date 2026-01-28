@@ -15,7 +15,7 @@ export function Hero() {
             languages.
           </p>
           <div className="flex items-center gap-4">
-            <Link href="/waitlist">
+            <Link href="/signup">
               <Button size="lg">Sign Up</Button>
             </Link>
             <Link href="/login">
