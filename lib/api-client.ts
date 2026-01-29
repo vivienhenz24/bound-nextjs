@@ -4,10 +4,11 @@ import { API_BASE_URL } from "./api-config"
 import { getAccessToken, removeAccessToken, setAccessToken } from "./token-storage"
 
 type JsonValue = string | number | boolean | null | { [key: string]: JsonValue } | JsonValue[]
+type JsonBody = JsonValue | FormData | object
 
 type RequestOptions = {
   method?: string
-  body?: JsonValue | FormData
+  body?: JsonBody
   headers?: HeadersInit
   signal?: AbortSignal
 }
