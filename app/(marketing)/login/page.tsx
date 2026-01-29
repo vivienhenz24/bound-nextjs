@@ -1,11 +1,17 @@
 "use client"
 
-import { useEffect } from "react"
+import { Suspense, useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { LoginForm } from "@/components/login/login-form"
 import { useAuth } from "@/hooks/use-auth"
 
-export default function LoginPage() {
+const LoadingFallback = () => (
+  <div className="flex min-h-[calc(100vh-64px)] items-center justify-center">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+  </div>
+)
+
+const LoginContent = () => {
   const searchParams = useSearchParams()
   const registered = searchParams?.get("registered")
   const verified = searchParams?.get("verified")
@@ -21,11 +27,7 @@ export default function LoginPage() {
 
   // Show nothing while checking or if authenticated (prevent flash)
   if (loading) {
-    return (
-      <div className="flex min-h-[calc(100vh-64px)] items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    )
+    return <LoadingFallback />
   }
 
   if (isAuthenticated) {
@@ -52,5 +54,13 @@ export default function LoginPage() {
         <LoginForm />
       </div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <LoginContent />
+    </Suspense>
   )
 }
