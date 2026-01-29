@@ -4,7 +4,6 @@ import { useState } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { SearchBar } from "@/components/landing/search-bar"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 const CALENDLY_URL = "https://calendly.com/vikrambhamre/meeting"
@@ -34,14 +33,17 @@ export function PublicNavbar() {
             </Link>
           </div>
         </div>
-        <div className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-96">
-          <SearchBar />
-        </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="hidden md:block">
             <Button size="sm">Contact Us</Button>
           </a>
+          <Link href="/signup" className="hidden md:block">
+            <Button size="sm" variant="outline">Sign Up</Button>
+          </Link>
+          <Link href="/login" className="hidden md:block">
+            <Button size="sm" variant="ghost">Log In</Button>
+          </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden text-foreground hover:text-muted-foreground transition-colors p-2"
@@ -82,6 +84,16 @@ export function PublicNavbar() {
                   Contact Us
                 </Button>
               </a>
+              <Link href="/signup" onClick={() => setMobileMenuOpen(false)} className="w-full">
+                <Button size="sm" variant="outline" className="w-full">
+                  Sign Up
+                </Button>
+              </Link>
+              <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="w-full">
+                <Button size="sm" variant="ghost" className="w-full">
+                  Log In
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
