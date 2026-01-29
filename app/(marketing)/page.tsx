@@ -11,7 +11,8 @@ export default function Home() {
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
       console.log("[home] auth state", { isAuthenticated, loading })
-      fetch("/api/auth-status")
+      const debugQuery = process.env.NEXT_PUBLIC_DEBUG_LOGS === "true" ? "?debugAuth=1" : ""
+      fetch(`/api/auth-status${debugQuery}`)
         .then((res) => res.json())
         .then((data) => {
           console.log("[home] auth-status", data)
@@ -23,9 +24,9 @@ export default function Home() {
   }, [isAuthenticated, loading])
 
   return (
-    <>
+    <div className="mx-auto w-full max-w-6xl border-x border-border">
       <Hero />
       <Pipeline />
-    </>
+    </div>
   )
 }

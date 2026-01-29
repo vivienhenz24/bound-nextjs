@@ -4,7 +4,7 @@ const CALENDLY_URL = "https://calendly.com/vikrambhamre/meeting"
 
 export function Hero() {
   return (
-    <section className="px-4 pt-24 pb-4 md:pt-32">
+    <section className="px-6 pt-24 pb-4 md:px-10 md:pt-32">
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-start gap-12 md:grid-cols-2">
         <div className="flex flex-col items-start text-left">
           <h2 className="mb-6 text-4xl font-semibold tracking-tight text-foreground md:text-5xl lg:text-7xl">

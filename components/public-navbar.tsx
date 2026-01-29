@@ -12,7 +12,7 @@ export function PublicNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <nav className="relative sticky top-0 z-50 w-full bg-background">
+    <nav className="relative z-50 w-full border-b border-border ">
       <div className="flex h-16 items-center justify-between px-4 md:px-0">
         <div className="flex items-center gap-8">
           <Link href="/" className="text-xl md:text-2xl font-semibold text-primary tracking-tight">

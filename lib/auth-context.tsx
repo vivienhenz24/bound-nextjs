@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { createContext, useCallback, type ReactNode } from "react"
+import { createContext, useCallback, useEffect, type ReactNode } from "react"
 
 import { authApi } from "./api/auth-api"
 import { removeAccessToken, setAccessToken } from "./token-storage"
@@ -17,6 +17,18 @@ interface AuthProviderProps {
 export function AuthProvider({ children }: AuthProviderProps) {
   const router = useRouter()
   const queryClient = useQueryClient()
+  const logAuthStatus = useCallback(async (label: string) => {
+    if (process.env.NEXT_PUBLIC_DEBUG_LOGS !== "true") {
+      return
+    }
+    try {
+      const response = await fetch("/api/auth-status?debugAuth=1", { cache: "no-store" })
+      const data = await response.json()
+      console.log("[auth] auth-status", { label, ...data })
+    } catch (error) {
+      console.log("[auth] auth-status failed", { label, error })
+    }
+  }, [])
 
   const currentUserQuery = useQuery<User | null>({
     queryKey: ["auth", "me"],
@@ -46,9 +58,28 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const loading = currentUserQuery.isLoading
   const isAuthenticated = !!user
 
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+      console.log("[auth] state", {
+        loading,
+        isAuthenticated,
+        hasUser: !!user,
+        userId: user?.id ?? null,
+        email: user?.email ?? null,
+      })
+    }
+  }, [loading, isAuthenticated, user])
+
   const refreshAuth = useCallback(async () => {
+    if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+      console.log("[auth] refresh start")
+    }
     await queryClient.invalidateQueries({ queryKey: ["auth", "me"] })
-  }, [queryClient])
+    if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+      console.log("[auth] refresh done")
+    }
+    await logAuthStatus("refreshAuth")
+  }, [logAuthStatus, queryClient])
 
   const loginMutation = useMutation({
     mutationFn: authApi.login,
@@ -75,6 +106,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             tokenLength: response.access_token.length,
           })
         }
+        await logAuthStatus("after-login-token")
 
         // Fetch user data after login and store it directly to avoid race conditions
         const me = await authApi.getCurrentUser()
@@ -86,6 +118,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
           console.log("[auth] navigate", { to: redirectTo })
         }
+        await logAuthStatus("before-login-redirect")
         router.replace(redirectTo)
       } catch (error: unknown) {
         console.error("Login failed:", error)
@@ -95,15 +128,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
         throw new Error("Login failed")
       }
     },
-    [loginMutation, queryClient, router]
+    [logAuthStatus, loginMutation, queryClient, router]
   )
 
   const register = useCallback(
     async (data: RegisterData) => {
       try {
+        if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+          console.log("[auth] register start", { email: data.email })
+        }
         await registerMutation.mutateAsync(data)
         // Don't auto-login after registration
         // User should verify email or login manually
+        if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+          console.log("[auth] register ok")
+        }
       } catch (error: unknown) {
         console.error("Registration failed:", error)
         throw new Error("Registration failed. Email may already be in use.")
@@ -114,10 +153,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = useCallback(async () => {
     try {
+      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+        console.log("[auth] logout start")
+      }
       await logoutMutation.mutateAsync()
+      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+        console.log("[auth] logout ok")
+      }
     } catch (error) {
       console.error("Logout failed:", error)
+      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+        console.log("[auth] logout failed", { error })
+      }
     } finally {
+      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+        console.log("[auth] clearing local auth and redirecting", { to: "/" })
+      }
       removeAccessToken()
       queryClient.setQueryData(["auth", "me"], null)
       router.push("/")
