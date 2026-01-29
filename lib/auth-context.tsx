@@ -26,7 +26,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       } catch (error) {
         // Silent fail - user is just not authenticated
         // Don't log error for public pages
-        removeAccessToken()
         return null
       }
     },
@@ -59,8 +58,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const response = await loginMutation.mutateAsync({ email, password })
         setAccessToken(response.access_token)
 
-        // Fetch user data after login
-        await queryClient.invalidateQueries({ queryKey: ["auth", "me"] })
+        // Fetch user data after login and store it directly to avoid race conditions
+        const me = await authApi.getCurrentUser()
+        queryClient.setQueryData(["auth", "me"], me)
 
         router.push("/dashboard")
       } catch (error: unknown) {
