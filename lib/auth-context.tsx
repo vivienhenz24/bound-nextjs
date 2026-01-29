@@ -65,7 +65,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
         router.push("/dashboard")
       } catch (error: unknown) {
         console.error("Login failed:", error)
-        throw new Error("Invalid email or password")
+        if (error instanceof Error) {
+          throw error
+        }
+        throw new Error("Login failed")
       }
     },
     [loginMutation, queryClient, router]
@@ -93,7 +96,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     } finally {
       removeAccessToken()
       queryClient.setQueryData(["auth", "me"], null)
-      router.push("/login")
+      router.push("/")
     }
   }, [logoutMutation, queryClient, router])
 

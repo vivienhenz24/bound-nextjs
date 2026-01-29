@@ -22,4 +22,12 @@ export const authApi = {
   refreshToken: async (): Promise<LoginResponse> => {
     return await apiClient.post<LoginResponse>("/auth/refresh")
   },
+
+  verifyEmail: async (token: string): Promise<{ message: string }> => {
+    return await apiClient.post<{ message: string }>("/auth/verify-email", { token })
+  },
+
+  resendVerification: async (email: string): Promise<{ message: string }> => {
+    return await apiClient.post<{ message: string }>("/auth/resend-verification", { email })
+  },
 }

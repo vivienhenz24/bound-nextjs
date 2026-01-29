@@ -39,7 +39,11 @@ export function LoginForm() {
       await login(parsed.data.email, parsed.data.password)
       router.push("/dashboard")
     } catch (err) {
-      setError("Invalid email or password. Please check your credentials and try again.")
+      if (err instanceof Error) {
+        setError(err.message)
+      } else {
+        setError("Invalid email or password. Please check your credentials and try again.")
+      }
     } finally {
       setLoading(false)
     }

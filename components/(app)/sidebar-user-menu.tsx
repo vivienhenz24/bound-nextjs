@@ -53,7 +53,7 @@ export function SidebarUserMenu() {
         <div ref={containerRef} className="relative">
           <SidebarMenuButton
             size="lg"
-            className="text-muted-foreground"
+            className="text-sidebar-foreground/80 dark:text-muted-foreground"
             onClick={() => setOpen((prev) => !prev)}
             aria-expanded={open}
             aria-controls="sidebar-user-panel"
@@ -63,7 +63,9 @@ export function SidebarUserMenu() {
             </div>
             <div className="grid flex-1 text-left text-sm leading-tight group-data-[collapsible=icon]:hidden">
               <span className="truncate font-medium">{displayName}</span>
-              <span className="truncate text-xs text-muted-foreground">{user.email}</span>
+              <span className="truncate text-xs text-sidebar-foreground/70 dark:text-muted-foreground">
+                {user.email}
+              </span>
             </div>
             <ChevronsUpDown
               className="ml-auto size-4 transition-transform group-data-[collapsible=icon]:hidden data-[state=open]:rotate-180"
@@ -76,7 +78,7 @@ export function SidebarUserMenu() {
             data-state={open ? "open" : "closed"}
             className="bg-sidebar text-sidebar-foreground border-sidebar-border absolute inset-x-0 bottom-full z-10 mb-2 overflow-hidden rounded-lg border transition-[transform,opacity] duration-200 ease-out data-[state=closed]:pointer-events-none data-[state=closed]:translate-y-2 data-[state=closed]:opacity-0"
           >
-            <div className="px-3 pt-3 pb-2 text-xs font-medium tracking-wide text-muted-foreground">
+            <div className="px-3 pt-3 pb-2 text-xs font-medium tracking-wide text-sidebar-foreground/70 dark:text-muted-foreground">
               Account
             </div>
             <div className="flex flex-col gap-1 px-2 pb-2">

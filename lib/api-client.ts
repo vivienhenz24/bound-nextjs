@@ -55,6 +55,26 @@ const parseResponse = async <T>(response: Response): Promise<T> => {
   return (await response.text()) as T
 }
 
+const getErrorMessage = (errorData: unknown): string => {
+  if (typeof errorData === "string") {
+    return errorData
+  }
+
+  if (errorData && typeof errorData === "object") {
+    const maybeDetail = (errorData as { detail?: unknown }).detail
+    if (typeof maybeDetail === "string") {
+      return maybeDetail
+    }
+
+    const maybeMessage = (errorData as { message?: unknown }).message
+    if (typeof maybeMessage === "string") {
+      return maybeMessage
+    }
+  }
+
+  return "Request failed."
+}
+
 const refreshAccessToken = async (): Promise<string | null> => {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
@@ -94,7 +114,7 @@ const request = async <T>(
       const retryResponse = await fetch(`${API_BASE_URL}${path}`, retryInit)
       if (!retryResponse.ok) {
         const errorData = await parseResponse<unknown>(retryResponse)
-        throw new Error(typeof errorData === "string" ? errorData : "Request failed after refresh.")
+        throw new Error(getErrorMessage(errorData))
       }
       return await parseResponse<T>(retryResponse)
     }
@@ -104,7 +124,7 @@ const request = async <T>(
 
   if (!response.ok) {
     const errorData = await parseResponse<unknown>(response)
-    throw new Error(typeof errorData === "string" ? errorData : "Request failed.")
+    throw new Error(getErrorMessage(errorData))
   }
 
   return await parseResponse<T>(response)

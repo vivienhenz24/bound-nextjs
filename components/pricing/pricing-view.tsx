@@ -22,7 +22,7 @@ export default function PricingView() {
           <div className="mt-6 space-y-4 text-sm">
             <div className="flex items-end justify-between border-b border-border/60 pb-3">
               <span className="text-muted-foreground">Setup fee</span>
-              <span className="text-2xl font-semibold text-primary">$49</span>
+              <span className="text-2xl font-semibold text-primary">Free</span>
             </div>
             <div className="flex items-end justify-between">
               <span className="text-muted-foreground">Creator share</span>
