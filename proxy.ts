@@ -7,12 +7,23 @@ export function proxy(request: NextRequest) {
   // Check if user has refresh token (indicates authenticated session)
   const refreshToken = request.cookies.get("refresh_token")?.value
   const isAuthenticated = !!refreshToken
+  const debugEnabled = request.nextUrl.searchParams.get("debugAuth") === "1"
+
+  const addDebugHeaders = (response: NextResponse) => {
+    if (!debugEnabled) {
+      return response
+    }
+    response.headers.set("x-bound-auth", isAuthenticated ? "auth" : "noauth")
+    response.headers.set("x-bound-refresh-present", isAuthenticated ? "true" : "false")
+    response.headers.set("x-bound-path", pathname)
+    return response
+  }
 
   // Auth-based routing for root path
   if (pathname === "/") {
     if (isAuthenticated) {
       // Rewrite to dashboard, URL stays /
-      return NextResponse.rewrite(new URL("/dashboard", request.url))
+      return addDebugHeaders(NextResponse.rewrite(new URL("/dashboard", request.url)))
     }
     // If not authenticated, continue to marketing home page
   }
@@ -20,7 +31,7 @@ export function proxy(request: NextRequest) {
   // Redirect authenticated users away from login/signup pages
   if (pathname === "/login" || pathname === "/signup") {
     if (isAuthenticated) {
-      return NextResponse.redirect(new URL("/dashboard", request.url))
+      return addDebugHeaders(NextResponse.redirect(new URL("/", request.url)))
     }
   }
 
@@ -36,11 +47,11 @@ export function proxy(request: NextRequest) {
       const loginUrl = new URL("/login", request.url)
       // Add redirect param so they can return after login
       loginUrl.searchParams.set("redirect", pathname)
-      return NextResponse.redirect(loginUrl)
+      return addDebugHeaders(NextResponse.redirect(loginUrl))
     }
   }
 
-  return NextResponse.next()
+  return addDebugHeaders(NextResponse.next())
 }
 
 export const config = {

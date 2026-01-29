@@ -15,15 +15,23 @@ const LoginContent = () => {
   const searchParams = useSearchParams()
   const registered = searchParams?.get("registered")
   const verified = searchParams?.get("verified")
+  const redirectParam = searchParams?.get("redirect")
   const { isAuthenticated, loading } = useAuth()
   const router = useRouter()
 
   // Redirect if already authenticated
   useEffect(() => {
-    if (!loading && isAuthenticated) {
-      router.push("/dashboard")
+    if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+      console.log("[login] auth state", { loading, isAuthenticated, redirectParam })
     }
-  }, [isAuthenticated, loading, router])
+    if (!loading && isAuthenticated) {
+      const target = redirectParam && redirectParam.startsWith("/") ? redirectParam : "/"
+      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+        console.log("[login] redirecting", { target })
+      }
+      router.replace(target)
+    }
+  }, [isAuthenticated, loading, redirectParam, router])
 
   // Show nothing while checking or if authenticated (prevent flash)
   if (loading) {
@@ -51,7 +59,9 @@ const LoginContent = () => {
             </p>
           </div>
         )}
-        <LoginForm />
+        <LoginForm
+          redirectTo={redirectParam && redirectParam.startsWith("/") ? redirectParam : "/"}
+        />
       </div>
     </div>
   )

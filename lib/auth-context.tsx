@@ -22,14 +22,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
     queryKey: ["auth", "me"],
     queryFn: async () => {
       try {
-        if (process.env.NODE_ENV !== "production") {
+        if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
           console.log("[auth] loading current user")
         }
-        return await authApi.getCurrentUser()
+        const user = await authApi.getCurrentUser()
+        if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+          console.log("[auth] current user ok", { hasUser: !!user, user })
+        }
+        return user
       } catch (error) {
         // Silent fail - user is just not authenticated
         // Don't log error for public pages
-        if (process.env.NODE_ENV !== "production") {
+        if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
           console.log("[auth] current user failed", { error })
         }
         return null
@@ -59,14 +63,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
   })
 
   const login = useCallback(
-    async (email: string, password: string) => {
+    async (email: string, password: string, redirectTo = "/") => {
       try {
-        if (process.env.NODE_ENV !== "production") {
-          console.log("[auth] login start", { email })
+        if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+          console.log("[auth] login start", { email, redirectTo })
         }
         const response = await loginMutation.mutateAsync({ email, password })
         setAccessToken(response.access_token)
-        if (process.env.NODE_ENV !== "production") {
+        if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
           console.log("[auth] token stored", {
             tokenLength: response.access_token.length,
           })
@@ -75,11 +79,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
         // Fetch user data after login and store it directly to avoid race conditions
         const me = await authApi.getCurrentUser()
         queryClient.setQueryData(["auth", "me"], me)
-        if (process.env.NODE_ENV !== "production") {
+        if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
           console.log("[auth] current user set", { hasUser: !!me })
         }
 
-        router.push("/dashboard")
+        if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+          console.log("[auth] navigate", { to: redirectTo })
+        }
+        router.replace(redirectTo)
       } catch (error: unknown) {
         console.error("Login failed:", error)
         if (error instanceof Error) {

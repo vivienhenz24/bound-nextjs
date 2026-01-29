@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
@@ -16,8 +15,11 @@ const loginSchema = z.object({
   password: z.string().min(1, "Password is required."),
 })
 
-export function LoginForm() {
-  const router = useRouter()
+interface LoginFormProps {
+  redirectTo?: string
+}
+
+export function LoginForm({ redirectTo = "/" }: LoginFormProps) {
   const { login } = useAuth()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -35,7 +37,7 @@ export function LoginForm() {
     setLoading(true)
 
     try {
-      if (process.env.NODE_ENV !== "production") {
+      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
         console.log("[login] submit", { email })
       }
       const parsed = loginSchema.safeParse({ email, password })
@@ -45,12 +47,14 @@ export function LoginForm() {
         return
       }
 
-      await login(parsed.data.email, parsed.data.password)
-      if (process.env.NODE_ENV !== "production") {
-        console.log("[login] success, redirecting to dashboard")
+      await login(parsed.data.email, parsed.data.password, redirectTo)
+      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+        console.log("[login] success, redirecting", { redirectTo })
       }
-      router.push("/dashboard")
     } catch (err) {
+      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
+        console.log("[login] error", { err })
+      }
       if (err instanceof Error) {
         setError(err.message)
         if (err.message.toLowerCase().includes("email not verified")) {
