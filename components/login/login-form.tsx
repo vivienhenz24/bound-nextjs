@@ -35,6 +35,9 @@ export function LoginForm() {
     setLoading(true)
 
     try {
+      if (process.env.NODE_ENV !== "production") {
+        console.log("[login] submit", { email })
+      }
       const parsed = loginSchema.safeParse({ email, password })
       if (!parsed.success) {
         setError(parsed.error.issues[0]?.message ?? "Invalid form input.")
@@ -43,6 +46,9 @@ export function LoginForm() {
       }
 
       await login(parsed.data.email, parsed.data.password)
+      if (process.env.NODE_ENV !== "production") {
+        console.log("[login] success, redirecting to dashboard")
+      }
       router.push("/dashboard")
     } catch (err) {
       if (err instanceof Error) {

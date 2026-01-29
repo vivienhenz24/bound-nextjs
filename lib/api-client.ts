@@ -105,29 +105,70 @@ const request = async <T>(
   retried = false
 ): Promise<T> => {
   const token = getAccessToken()
+  const method = options.method ?? (options.body ? "POST" : "GET")
+  if (process.env.NODE_ENV !== "production") {
+    console.log("[api] request", {
+      path,
+      method,
+      hasToken: !!token,
+      tokenLength: token?.length ?? 0,
+      retried,
+    })
+  }
   const init = buildRequestInit(options, token)
   const response = await fetch(`${API_BASE_URL}${path}`, init)
 
   if (response.status === 401 && !retried) {
+    if (process.env.NODE_ENV !== "production") {
+      console.log("[api] 401, attempting refresh", { path })
+    }
     const refreshedToken = await refreshAccessToken()
     if (refreshedToken) {
+      if (process.env.NODE_ENV !== "production") {
+        console.log("[api] refresh succeeded", {
+          path,
+          refreshedTokenLength: refreshedToken.length,
+        })
+      }
       const retryInit = buildRequestInit(options, refreshedToken)
       const retryResponse = await fetch(`${API_BASE_URL}${path}`, retryInit)
       if (!retryResponse.ok) {
         const errorData = await parseResponse<unknown>(retryResponse)
+        if (process.env.NODE_ENV !== "production") {
+          console.log("[api] retry failed", {
+            path,
+            status: retryResponse.status,
+          })
+        }
         throw new Error(getErrorMessage(errorData))
+      }
+      if (process.env.NODE_ENV !== "production") {
+        console.log("[api] retry ok", { path, status: retryResponse.status })
       }
       return await parseResponse<T>(retryResponse)
     }
 
+    if (process.env.NODE_ENV !== "production") {
+      console.log("[api] refresh failed, clearing token", { path })
+    }
     removeAccessToken()
   }
 
   if (!response.ok) {
     const errorData = await parseResponse<unknown>(response)
+    if (process.env.NODE_ENV !== "production") {
+      console.log("[api] request failed", {
+        path,
+        status: response.status,
+        error: getErrorMessage(errorData),
+      })
+    }
     throw new Error(getErrorMessage(errorData))
   }
 
+  if (process.env.NODE_ENV !== "production") {
+    console.log("[api] request ok", { path, status: response.status })
+  }
   return await parseResponse<T>(response)
 }
 
