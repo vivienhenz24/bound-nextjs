@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useAuth } from "@/hooks/use-auth"
+import { authApi } from "@/lib/api/auth-api"
 
 const loginSchema = z.object({
   email: z.string().trim().email("Enter a valid email address."),
@@ -21,11 +22,16 @@ export function LoginForm() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
+  const [resendMessage, setResendMessage] = useState("")
+  const [resendLoading, setResendLoading] = useState(false)
+  const [showResend, setShowResend] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
+    setResendMessage("")
+    setShowResend(false)
     setLoading(true)
 
     try {
@@ -41,11 +47,33 @@ export function LoginForm() {
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message)
+        if (err.message.toLowerCase().includes("email not verified")) {
+          setShowResend(true)
+        }
       } else {
         setError("Invalid email or password. Please check your credentials and try again.")
       }
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleResend = async (event: React.FormEvent) => {
+    event.preventDefault()
+    if (!email.trim()) {
+      setResendMessage("Enter the email address you signed up with.")
+      return
+    }
+
+    setResendLoading(true)
+    setResendMessage("")
+    try {
+      const response = await authApi.resendVerification(email.trim())
+      setResendMessage(response.message)
+    } catch (error) {
+      setResendMessage(error instanceof Error ? error.message : "Failed to resend email.")
+    } finally {
+      setResendLoading(false)
     }
   }
 
@@ -70,6 +98,11 @@ export function LoginForm() {
         {error && (
           <div className="rounded-lg bg-destructive/10 border border-destructive/20 p-4 -mx-4 -my-3">
             <p className="text-sm font-medium text-destructive tracking-tight">{error}</p>
+          </div>
+        )}
+        {resendMessage && (
+          <div className="rounded-lg bg-secondary/50 border border-border/60 p-4 -mx-4 -my-3 mt-3">
+            <p className="text-sm font-medium text-foreground/80 tracking-tight">{resendMessage}</p>
           </div>
         )}
       </div>
@@ -129,6 +162,23 @@ export function LoginForm() {
             </Field>
           </FieldGroup>
         </FieldSet>
+
+        {showResend && (
+          <div className="rounded-lg border border-border/60 bg-card p-4 space-y-3">
+            <p className="text-sm font-medium text-muted-foreground/70 tracking-tight">
+              Need a new verification email?
+            </p>
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full h-11"
+              onClick={handleResend}
+              disabled={resendLoading}
+            >
+              {resendLoading ? "Sending..." : "Resend verification email"}
+            </Button>
+          </div>
+        )}
 
         <div className="flex flex-col gap-3">
           <Button type="submit" className="w-full h-11" disabled={loading}>
