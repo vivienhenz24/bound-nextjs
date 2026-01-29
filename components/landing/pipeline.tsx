@@ -41,7 +41,7 @@ export function Pipeline() {
         <div className="mt-16 grid gap-10 md:grid-cols-2">
           {steps.map((step, i) => (
             <div key={i} className="flex gap-5">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md border border-border bg-muted">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md border-[0.5px] border-foreground/90 bg-muted">
                 <step.icon className="h-5 w-5 text-primary" />
               </div>
               <div>

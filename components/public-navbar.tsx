@@ -12,7 +12,7 @@ export function PublicNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <nav className="relative z-50 w-full border-b border-border ">
+    <nav className="relative z-50 w-full">
       <div className="flex h-16 items-center justify-between px-4 md:px-0">
         <div className="flex items-center gap-8">
           <Link href="/" className="text-xl md:text-2xl font-semibold text-primary tracking-tight">
@@ -58,9 +58,15 @@ export function PublicNavbar() {
         </div>
       </div>
 
+      {/* Bottom border that extends full viewport width */}
+      <div
+        className="absolute bottom-0 left-1/2 right-1/2 -mx-[50vw] w-screen border-b-[0.5px] border-foreground/90"
+        aria-hidden="true"
+      />
+
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-border/40 bg-background">
+        <div className="md:hidden border-t-[0.5px] border-foreground/40 bg-background">
           <div className="flex flex-col items-start px-4 py-4 gap-4">
             <Link
               href="/models"

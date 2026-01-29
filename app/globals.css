@@ -167,8 +167,6 @@
   .marketing-layout {
     padding-left: var(--page-padding);
     padding-right: var(--page-padding);
-    border-left: 1px solid var(--border);
-    border-right: 1px solid var(--border);
   }
 
   input:-webkit-autofill,

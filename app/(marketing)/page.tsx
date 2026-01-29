@@ -24,8 +24,12 @@ export default function Home() {
   }, [isAuthenticated, loading])
 
   return (
-    <div className="mx-auto w-full max-w-6xl border-x border-border">
+    <div className="mx-auto w-full max-w-6xl">
       <Hero />
+      <div
+        className="relative left-1/2 right-1/2 -mx-[50vw] w-screen border-t-[0.5px] border-foreground/90"
+        aria-hidden="true"
+      />
       <Pipeline />
     </div>
   )
