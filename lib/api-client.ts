@@ -106,7 +106,7 @@ const request = async <T>(
 ): Promise<T> => {
   const token = getAccessToken()
   const method = options.method ?? (options.body ? "POST" : "GET")
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
     console.log("[api] request", {
       path,
       method,
@@ -119,12 +119,12 @@ const request = async <T>(
   const response = await fetch(`${API_BASE_URL}${path}`, init)
 
   if (response.status === 401 && !retried) {
-    if (process.env.NODE_ENV !== "production") {
+    if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
       console.log("[api] 401, attempting refresh", { path })
     }
     const refreshedToken = await refreshAccessToken()
     if (refreshedToken) {
-      if (process.env.NODE_ENV !== "production") {
+      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
         console.log("[api] refresh succeeded", {
           path,
           refreshedTokenLength: refreshedToken.length,
@@ -134,7 +134,7 @@ const request = async <T>(
       const retryResponse = await fetch(`${API_BASE_URL}${path}`, retryInit)
       if (!retryResponse.ok) {
         const errorData = await parseResponse<unknown>(retryResponse)
-        if (process.env.NODE_ENV !== "production") {
+        if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
           console.log("[api] retry failed", {
             path,
             status: retryResponse.status,
@@ -142,13 +142,13 @@ const request = async <T>(
         }
         throw new Error(getErrorMessage(errorData))
       }
-      if (process.env.NODE_ENV !== "production") {
+      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
         console.log("[api] retry ok", { path, status: retryResponse.status })
       }
       return await parseResponse<T>(retryResponse)
     }
 
-    if (process.env.NODE_ENV !== "production") {
+    if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
       console.log("[api] refresh failed, clearing token", { path })
     }
     removeAccessToken()
@@ -156,7 +156,7 @@ const request = async <T>(
 
   if (!response.ok) {
     const errorData = await parseResponse<unknown>(response)
-    if (process.env.NODE_ENV !== "production") {
+    if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
       console.log("[api] request failed", {
         path,
         status: response.status,
@@ -166,7 +166,7 @@ const request = async <T>(
     throw new Error(getErrorMessage(errorData))
   }
 
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
     console.log("[api] request ok", { path, status: response.status })
   }
   return await parseResponse<T>(response)
