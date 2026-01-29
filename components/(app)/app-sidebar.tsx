@@ -64,7 +64,12 @@ export function AppSidebar() {
                   return (
                     <SidebarMenuItem key={item.href}>
                       <SidebarMenuButton asChild isActive={isActive} tooltip={item.title}>
-                        <Link href={item.href} className={cn(!isActive && "text-muted-foreground")}>
+                        <Link
+                          href={item.href}
+                          className={cn(
+                            !isActive && "text-sidebar-foreground/80 dark:text-muted-foreground"
+                          )}
+                        >
                           <item.icon className="h-5 w-5" />
                           <span>{item.title}</span>
                         </Link>
@@ -84,7 +89,12 @@ export function AppSidebar() {
                   >
                     <SidebarMenuItem>
                       <SidebarMenuButton asChild isActive={isActive} tooltip={item.title}>
-                        <Link href={item.href} className={cn(!isActive && "text-muted-foreground")}>
+                        <Link
+                          href={item.href}
+                          className={cn(
+                            !isActive && "text-sidebar-foreground/80 dark:text-muted-foreground"
+                          )}
+                        >
                           <item.icon className="h-5 w-5" />
                           <span>{item.title}</span>
                         </Link>
@@ -104,7 +114,10 @@ export function AppSidebar() {
                                 <SidebarMenuSubButton asChild isActive={isSubActive}>
                                   <Link
                                     href={subItem.href}
-                                    className={cn(!isSubActive && "text-muted-foreground")}
+                                    className={cn(
+                                      !isSubActive &&
+                                        "text-sidebar-foreground/80 dark:text-muted-foreground"
+                                    )}
                                   >
                                     <span>{subItem.title}</span>
                                   </Link>

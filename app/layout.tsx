@@ -3,6 +3,8 @@ import localFont from "next/font/local"
 import { Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { QueryProvider } from "@/components/query-provider"
+import { AuthProvider } from "@/lib/auth-context"
 
 const hikasamiSans = localFont({
   src: "../fonts/variable/Hikasami-VF.woff2",
@@ -51,7 +53,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <QueryProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

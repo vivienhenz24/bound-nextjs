@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Github, Menu, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SearchBar } from "@/components/landing/search-bar"
 
@@ -35,22 +35,13 @@ export function PublicNavbar() {
           <SearchBar />
         </div>
         <div className="flex items-center gap-2">
-          <Link
-            href="https://github.com/bound-systems"
-            target="_blank"
-            rel="noreferrer"
-            className="text-foreground hover:text-muted-foreground transition-colors p-2"
-          >
-            <Github className="h-5 w-5" />
-            <span className="sr-only">GitHub</span>
-          </Link>
-          <Link href="/waitlist" className="hidden md:block">
-            <Button size="sm" variant="outline">
-              Sign Up
-            </Button>
+          <Link href="/signup" className="hidden md:block">
+            <Button size="sm">Sign Up</Button>
           </Link>
           <Link href="/login" className="hidden md:block">
-            <Button size="sm">Log In</Button>
+            <Button size="sm" variant="outline">
+              Log In
+            </Button>
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -81,13 +72,13 @@ export function PublicNavbar() {
               Pricing
             </Link>
             <div className="pt-2 w-full flex flex-col gap-2">
-              <Link href="/waitlist" onClick={() => setMobileMenuOpen(false)} className="w-full">
-                <Button size="sm" variant="outline" className="w-full">
+              <Link href="/signup" onClick={() => setMobileMenuOpen(false)} className="w-full">
+                <Button size="sm" className="w-full">
                   Sign Up
                 </Button>
               </Link>
               <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="w-full">
-                <Button size="sm" className="w-full">
+                <Button size="sm" variant="outline" className="w-full">
                   Log In
                 </Button>
               </Link>
