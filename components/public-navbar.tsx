@@ -5,6 +5,9 @@ import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SearchBar } from "@/components/landing/search-bar"
+import { ThemeToggle } from "@/components/theme-toggle"
+
+const CALENDLY_URL = "https://calendly.com/vikrambhamre/meeting"
 
 export function PublicNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -35,14 +38,10 @@ export function PublicNavbar() {
           <SearchBar />
         </div>
         <div className="flex items-center gap-2">
-          <Link href="/signup" className="hidden md:block">
-            <Button size="sm">Sign Up</Button>
-          </Link>
-          <Link href="/login" className="hidden md:block">
-            <Button size="sm" variant="outline">
-              Log In
-            </Button>
-          </Link>
+          <ThemeToggle />
+          <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="hidden md:block">
+            <Button size="sm">Contact Us</Button>
+          </a>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden text-foreground hover:text-muted-foreground transition-colors p-2"
@@ -72,16 +71,17 @@ export function PublicNavbar() {
               Pricing
             </Link>
             <div className="pt-2 w-full flex flex-col gap-2">
-              <Link href="/signup" onClick={() => setMobileMenuOpen(false)} className="w-full">
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full"
+              >
                 <Button size="sm" className="w-full">
-                  Sign Up
+                  Contact Us
                 </Button>
-              </Link>
-              <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="w-full">
-                <Button size="sm" variant="outline" className="w-full">
-                  Log In
-                </Button>
-              </Link>
+              </a>
             </div>
           </div>
         </div>
