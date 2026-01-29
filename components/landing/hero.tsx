@@ -8,7 +8,7 @@ export function Hero() {
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-start gap-12 md:grid-cols-2">
         <div className="flex flex-col items-start text-left">
           <h2 className="mb-6 text-4xl font-semibold tracking-tight text-foreground md:text-5xl lg:text-7xl">
-            Your model speaks for you.
+            Let your model do the talking.
           </h2>
           <p className="mb-8 max-w-3xl text-lg font-normal tracking-tight md:text-xl lg:text-2xl">
             The simplest way to fine-tune speech models from just a few hours of audio while keeping

@@ -34,7 +34,7 @@ export function Pipeline() {
         <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground md:text-4xl lg:text-5xl">
           How it works
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-muted-foreground">
+        <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-foreground">
           From raw audio to a production-ready voice model in four steps.
         </p>
 
@@ -45,11 +45,9 @@ export function Pipeline() {
                 <step.icon className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Step {i + 1}</p>
+                <p className="text-sm font-medium text-foreground">Step {i + 1}</p>
                 <h3 className="mt-1 text-lg font-semibold text-foreground">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {step.description}
-                </p>
+                <p className="mt-2 text-sm leading-relaxed text-foreground">{step.description}</p>
               </div>
             </div>
           ))}

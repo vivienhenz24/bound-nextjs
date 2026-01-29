@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import { Hero } from "@/components/landing/hero"
+import { Pipeline } from "@/components/landing/pipeline"
 import { useAuth } from "@/hooks/use-auth"
 
 export default function Home() {

@@ -35,14 +35,18 @@ export function PublicNavbar() {
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="hidden md:block">
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:block"
+          >
             <Button size="sm">Contact Us</Button>
           </a>
-          <Link href="/signup" className="hidden md:block">
-            <Button size="sm" variant="outline">Sign Up</Button>
-          </Link>
           <Link href="/login" className="hidden md:block">
-            <Button size="sm" variant="ghost">Log In</Button>
+            <Button size="sm" variant="outline">
+              Log In
+            </Button>
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -84,13 +88,8 @@ export function PublicNavbar() {
                   Contact Us
                 </Button>
               </a>
-              <Link href="/signup" onClick={() => setMobileMenuOpen(false)} className="w-full">
-                <Button size="sm" variant="outline" className="w-full">
-                  Sign Up
-                </Button>
-              </Link>
               <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="w-full">
-                <Button size="sm" variant="ghost" className="w-full">
+                <Button size="sm" variant="outline" className="w-full">
                   Log In
                 </Button>
               </Link>
