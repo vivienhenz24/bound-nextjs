@@ -37,9 +37,6 @@ export function LoginForm({ redirectTo = "/" }: LoginFormProps) {
     setLoading(true)
 
     try {
-      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
-        console.log("[login] submit", { email })
-      }
       const parsed = loginSchema.safeParse({ email, password })
       if (!parsed.success) {
         setError(parsed.error.issues[0]?.message ?? "Invalid form input.")
@@ -48,13 +45,7 @@ export function LoginForm({ redirectTo = "/" }: LoginFormProps) {
       }
 
       await login(parsed.data.email, parsed.data.password, redirectTo)
-      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
-        console.log("[login] success, redirecting", { redirectTo })
-      }
     } catch (err) {
-      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
-        console.log("[login] error", { err })
-      }
       if (err instanceof Error) {
         setError(err.message)
         if (err.message.toLowerCase().includes("email not verified")) {

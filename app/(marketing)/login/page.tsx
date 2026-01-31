@@ -21,14 +21,8 @@ const LoginContent = () => {
 
   // Redirect if already authenticated
   useEffect(() => {
-    if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
-      console.log("[login] auth state", { loading, isAuthenticated, redirectParam })
-    }
     if (!loading && isAuthenticated) {
       const target = redirectParam && redirectParam.startsWith("/") ? redirectParam : "/"
-      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
-        console.log("[login] redirecting", { target })
-      }
       router.replace(target)
     }
   }, [isAuthenticated, loading, redirectParam, router])

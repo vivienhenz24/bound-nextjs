@@ -18,18 +18,9 @@ export function useRequireAuth(redirectUrl = "/login") {
   const pathname = usePathname()
 
   useEffect(() => {
-    if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
-      console.log("[auth] require", { loading, isAuthenticated, redirectUrl, pathname })
-    }
     if (!loading && !isAuthenticated) {
-      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
-        console.log("[auth] require redirect", { from: pathname, to: redirectUrl })
-      }
       router.push(redirectUrl)
       return
-    }
-    if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
-      console.log("[auth] require ok", { pathname })
     }
   }, [isAuthenticated, loading, router, redirectUrl, pathname])
 

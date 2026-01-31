@@ -11,13 +11,7 @@ export default function SignupPage() {
 
   // Redirect if already authenticated
   useEffect(() => {
-    if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
-      console.log("[signup] auth state", { loading, isAuthenticated })
-    }
     if (!loading && isAuthenticated) {
-      if (process.env.NEXT_PUBLIC_DEBUG_LOGS === "true") {
-        console.log("[signup] redirecting", { to: "/dashboard" })
-      }
       router.push("/dashboard")
     }
   }, [isAuthenticated, loading, router])
