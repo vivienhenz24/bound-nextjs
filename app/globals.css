@@ -106,8 +106,8 @@
 
 .dark {
   /* Core palette */
-  --background: #212121;
-  --foreground: #ffffff;
+  --background: #151519;
+  --foreground: #f9fafd;
 
   /* Surfaces */
   --card: #303030;
@@ -171,11 +171,16 @@
 
   /* Deep dark mode for marketing pages only */
   .dark .marketing-layout {
-    --background: hsl(0 0% 4%);
+    --background: #151519;
     --card: hsl(0 0% 8%);
     --secondary: hsl(0 0% 8%);
     --muted: hsl(0 0% 12%);
-    background-color: var(--background);
+    background-color: #151519;
+  }
+
+  /* Deep dark mode for authenticated app area */
+  .dark body {
+    background-color: #151519;
   }
 
   input:-webkit-autofill,
@@ -210,5 +215,27 @@
 
   ::-webkit-scrollbar-thumb:hover {
     background: var(--ring);
+  }
+}
+
+@layer utilities {
+  /* Dark background utility */
+  .bg-black_gradient {
+    background-color: #151519;
+  }
+
+  /* Spacing utilities */
+  .px-sm {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .py-xxxl {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+
+  .gap-xxxl {
+    gap: 120px;
   }
 }
