@@ -171,10 +171,10 @@
 
   /* Deep dark mode for marketing pages only */
   .dark .marketing-layout {
-    --background: #0a0a0a;
-    --card: #1a1a1a;
-    --secondary: #1a1a1a;
-    --muted: #2a2a2a;
+    --background: hsl(0 0% 4%);
+    --card: hsl(0 0% 8%);
+    --secondary: hsl(0 0% 8%);
+    --muted: hsl(0 0% 12%);
     background-color: var(--background);
   }
 
