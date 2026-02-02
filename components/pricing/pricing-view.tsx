@@ -13,8 +13,15 @@ export default function PricingView() {
           Every project is different. Reach out to us and we&apos;ll put together custom pricing
           tailored to your language, data, and deployment needs.
         </p>
-        <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="inline-flex">
-          <Button size="lg">Contact Us</Button>
+        <a
+          href={CALENDLY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex w-full justify-center sm:w-auto"
+        >
+          <Button size="lg" className="w-full sm:w-auto">
+            Contact Us
+          </Button>
         </a>
       </div>
     </div>

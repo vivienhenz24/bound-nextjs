@@ -27,12 +27,14 @@ export default function ModelsView() {
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
-            <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="flex w-full flex-col items-stretch justify-center gap-3 sm:w-auto sm:flex-row sm:items-center">
               <Link href="/signup">
-                <Button size="lg">Get Started</Button>
+                <Button size="lg" className="w-full sm:w-auto">
+                  Get Started
+                </Button>
               </Link>
               <Link href="/login">
-                <Button size="lg" variant="outline">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto">
                   Creator login
                 </Button>
               </Link>

@@ -42,9 +42,11 @@ export function Hero() {
             The simplest way to fine-tune speech models from just a few hours of audio while keeping
             full ownership of your model and data.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
             <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="lg">Contact Us</Button>
+              <Button size="lg" className="w-full sm:w-auto">
+                Contact Us
+              </Button>
             </a>
           </div>
         </div>
