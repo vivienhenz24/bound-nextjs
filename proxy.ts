@@ -4,15 +4,16 @@ import type { NextRequest } from "next/server"
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Check if user has refresh token (indicates authenticated session)
-  const refreshToken = request.cookies.get("refresh_token")?.value
-  const isAuthenticated = !!refreshToken
+  // Check for auth sync cookie (set by /api/auth-sync after login)
+  // This cookie is on the frontend domain, so middleware can access it
+  const authSynced = request.cookies.get("auth_synced")?.value
+  const isAuthenticated = authSynced === "true"
 
-  // Auth-based routing for root path
+  // Auth-based routing for root path - show different content while keeping URL as "/"
   if (pathname === "/") {
     if (isAuthenticated) {
-      // Rewrite to dashboard, URL stays /
-      return NextResponse.rewrite(new URL("/dashboard", request.url))
+      // Rewrite to home page, URL stays "/"
+      return NextResponse.rewrite(new URL("/home", request.url))
     }
     // If not authenticated, continue to marketing home page
   }
@@ -26,16 +27,17 @@ export function proxy(request: NextRequest) {
 
   // Protect app routes - redirect to login if not authenticated
   if (
-    pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/home") ||
     pathname.startsWith("/library") ||
+    pathname.startsWith("/libary") ||
     pathname.startsWith("/my-models") ||
     pathname.startsWith("/profile") ||
     pathname.startsWith("/settings")
   ) {
     if (!isAuthenticated) {
       const loginUrl = new URL("/login", request.url)
-      // Add redirect param so they can return after login
-      loginUrl.searchParams.set("redirect", pathname)
+      // Add redirect param so they can return after login (but always use "/" as target)
+      loginUrl.searchParams.set("redirect", "/")
       return NextResponse.redirect(loginUrl)
     }
   }
@@ -48,8 +50,9 @@ export const config = {
     "/",
     "/login",
     "/signup",
-    "/dashboard/:path*",
+    "/home/:path*",
     "/library/:path*",
+    "/libary/:path*",
     "/my-models/:path*",
     "/profile/:path*",
     "/settings/:path*",

@@ -1,7 +1,7 @@
 "use client"
 
-import { Suspense, useEffect } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { Suspense } from "react"
+import { useSearchParams } from "next/navigation"
 import { LoginForm } from "@/components/login/login-form"
 import { useAuth } from "@/hooks/use-auth"
 
@@ -16,24 +16,14 @@ const LoginContent = () => {
   const registered = searchParams?.get("registered")
   const verified = searchParams?.get("verified")
   const redirectParam = searchParams?.get("redirect")
-  const { isAuthenticated, loading } = useAuth()
-  const router = useRouter()
+  const { loading } = useAuth()
 
-  // Redirect if already authenticated
-  useEffect(() => {
-    if (!loading && isAuthenticated) {
-      const target = redirectParam && redirectParam.startsWith("/") ? redirectParam : "/"
-      router.replace(target)
-    }
-  }, [isAuthenticated, loading, redirectParam, router])
+  // NOTE: Removed redirect logic from here to avoid race condition with auth-context login redirect
+  // The login function in auth-context handles the redirect after successful login
 
-  // Show nothing while checking or if authenticated (prevent flash)
+  // Show loading state while checking auth
   if (loading) {
     return <LoadingFallback />
-  }
-
-  if (isAuthenticated) {
-    return null
   }
 
   return (

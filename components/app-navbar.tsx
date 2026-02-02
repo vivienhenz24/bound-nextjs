@@ -18,7 +18,7 @@ export function AppNavbar() {
           <NavigationMenuList className="list-none">
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <Link href="/dashboard" className="flex items-center shrink-0">
+                <Link href="/" className="flex items-center shrink-0">
                   <Image
                     src="/logo-dark.svg"
                     alt="bound logo"

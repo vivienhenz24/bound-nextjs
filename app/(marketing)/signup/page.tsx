@@ -1,32 +1,21 @@
 "use client"
 
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
 import { SignupForm } from "@/components/signup/signup-form"
 import { useAuth } from "@/hooks/use-auth"
 
 export default function SignupPage() {
-  const { isAuthenticated, loading } = useAuth()
-  const router = useRouter()
+  const { loading } = useAuth()
 
-  // Redirect if already authenticated
-  useEffect(() => {
-    if (!loading && isAuthenticated) {
-      router.push("/dashboard")
-    }
-  }, [isAuthenticated, loading, router])
+  // NOTE: Removed redirect logic to avoid race conditions
+  // Users can access signup even if authenticated (they'll be redirected by auth context if needed)
 
-  // Show nothing while checking or if authenticated (prevent flash)
+  // Show loading state while checking auth
   if (loading) {
     return (
       <div className="flex min-h-[calc(100vh-64px)] items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     )
-  }
-
-  if (isAuthenticated) {
-    return null
   }
 
   return (

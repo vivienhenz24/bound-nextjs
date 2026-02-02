@@ -1,4 +1,4 @@
-export default function DashboardView() {
+export default function HomeView() {
   return (
     <div className="space-y-6">
       <div>

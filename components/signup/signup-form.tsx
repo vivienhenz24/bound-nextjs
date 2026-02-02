@@ -65,7 +65,7 @@ export function SignupForm() {
 
       // Redirect to login after successful registration
       router.push("/login?registered=true")
-    } catch (err) {
+    } catch {
       setError("Registration failed. This email may already be in use.")
     } finally {
       setLoading(false)

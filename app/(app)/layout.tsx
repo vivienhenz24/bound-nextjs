@@ -10,8 +10,9 @@ export default function AppLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const { loading } = useRequireAuth()
+  const { loading, isAuthenticated } = useRequireAuth()
 
+  // Show loading state while checking auth
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -21,6 +22,11 @@ export default function AppLayout({
         </div>
       </div>
     )
+  }
+
+  // Don't render if not authenticated (prevents flash before redirect)
+  if (!isAuthenticated) {
+    return null
   }
 
   return (

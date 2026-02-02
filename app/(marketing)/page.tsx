@@ -2,6 +2,10 @@ import { Hero } from "@/components/landing/hero"
 import { Pipeline } from "@/components/landing/pipeline"
 
 export default function Home() {
+  // NOTE: This page is shown at "/" for unauthenticated users.
+  // For authenticated users, middleware rewrites "/" to show /home (URL stays "/")
+  // This is handled in proxy.ts using the auth_synced cookie
+
   return (
     <div className="mx-auto w-full max-w-6xl">
       <Hero />

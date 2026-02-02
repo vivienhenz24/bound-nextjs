@@ -92,8 +92,8 @@ const refreshAccessToken = async (): Promise<string | null> => {
       setAccessToken(data.access_token)
       return data.access_token
     }
-  } catch (error) {
-    // fall through to return null
+  } catch {
+    // Refresh failed - fall through to return null
   }
 
   return null
@@ -108,19 +108,29 @@ const request = async <T>(
   const init = buildRequestInit(options, token)
   const response = await fetch(`${API_BASE_URL}${path}`, init)
 
+  // Handle 401 Unauthorized - try to refresh token
   if (response.status === 401 && !retried) {
     const refreshedToken = await refreshAccessToken()
     if (refreshedToken) {
+      // Retry the original request with the new token
       const retryInit = buildRequestInit(options, refreshedToken)
       const retryResponse = await fetch(`${API_BASE_URL}${path}`, retryInit)
       if (!retryResponse.ok) {
         const errorData = await parseResponse<unknown>(retryResponse)
-        throw new Error(getErrorMessage(errorData))
+        const errorMessage = getErrorMessage(errorData)
+        // If retry also fails with 401, clear token and throw
+        if (retryResponse.status === 401) {
+          removeAccessToken()
+          throw new Error("Session expired. Please log in again.")
+        }
+        throw new Error(errorMessage)
       }
       return await parseResponse<T>(retryResponse)
     }
 
+    // Refresh failed, clear token
     removeAccessToken()
+    throw new Error("Session expired. Please log in again.")
   }
 
   if (!response.ok) {

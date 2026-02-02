@@ -19,8 +19,12 @@ export function useRequireAuth(redirectUrl = "/login") {
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
-      router.push(redirectUrl)
-      return
+      // Add current path as redirect parameter so user returns after login
+      const loginUrl = new URL(redirectUrl, window.location.origin)
+      if (pathname && pathname !== "/") {
+        loginUrl.searchParams.set("redirect", pathname)
+      }
+      router.push(loginUrl.pathname + loginUrl.search)
     }
   }, [isAuthenticated, loading, router, redirectUrl, pathname])
 

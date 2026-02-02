@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { createContext, useCallback, useEffect, type ReactNode } from "react"
+import { createContext, useCallback, type ReactNode } from "react"
 
 import { authApi } from "./api/auth-api"
 import { removeAccessToken, setAccessToken } from "./token-storage"
@@ -24,13 +24,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
       try {
         const user = await authApi.getCurrentUser()
         return user
-      } catch (error) {
+      } catch {
         // Silent fail - user is just not authenticated
         // Don't log error for public pages
         return null
       }
     },
     retry: false,
+    staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes
+    gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
   })
 
   const user = currentUserQuery.data ?? null
@@ -63,7 +65,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const me = await authApi.getCurrentUser()
         queryClient.setQueryData(["auth", "me"], me)
 
-        router.replace(redirectTo)
+        // Sync auth state to frontend domain (so middleware can detect it)
+        await fetch("/api/auth-sync", {
+          method: "POST",
+          credentials: "include",
+        })
+
+        // Small delay to ensure state updates have propagated
+        await new Promise((resolve) => setTimeout(resolve, 100))
+
+        // Redirect to target page (default "/" which shows home view for authenticated users)
+        router.push(redirectTo)
       } catch (error: unknown) {
         if (error instanceof Error) {
           throw error
@@ -80,7 +92,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         await registerMutation.mutateAsync(data)
         // Don't auto-login after registration
         // User should verify email or login manually
-      } catch (error: unknown) {
+      } catch {
         throw new Error("Registration failed. Email may already be in use.")
       }
     },
@@ -90,8 +102,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const logout = useCallback(async () => {
     try {
       await logoutMutation.mutateAsync()
-    } catch (error) {
-      // Ignore logout errors
+      // Clear the frontend auth sync cookie
+      await fetch("/api/auth-sync", {
+        method: "DELETE",
+        credentials: "include",
+      })
+    } catch {
+      // Ignore logout errors - always clear local state
     } finally {
       removeAccessToken()
       queryClient.setQueryData(["auth", "me"], null)
