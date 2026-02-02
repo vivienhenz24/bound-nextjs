@@ -8,7 +8,7 @@ export default function SignupPage() {
 
   // NOTE: Removed redirect logic to avoid race conditions
   // Users can access signup even if authenticated (they'll be redirected by auth context if needed)
-
+  //
   // Show loading state while checking auth
   if (loading) {
     return (
