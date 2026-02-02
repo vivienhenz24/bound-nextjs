@@ -77,33 +77,22 @@ const getErrorMessage = (errorData: unknown): string => {
 }
 
 const refreshAccessToken = async (): Promise<string | null> => {
-  console.log("🔄 [API CLIENT] Attempting to refresh access token...")
   try {
     const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
       method: "POST",
       credentials: "include",
     })
 
-    console.log("🔄 [API CLIENT] Refresh response:", {
-      status: response.status,
-      ok: response.ok,
-    })
-
     if (!response.ok) {
-      console.log("🔄 [API CLIENT] Refresh failed - response not OK")
       return null
     }
 
     const data = (await response.json()) as { access_token?: string }
     if (data.access_token) {
-      console.log("🔄 [API CLIENT] New access token received and stored")
       setAccessToken(data.access_token)
       return data.access_token
     }
-    console.log("🔄 [API CLIENT] No access token in refresh response")
-  } catch (error) {
-    console.error("🔄 [API CLIENT] Refresh error:", error)
-  }
+  } catch (error) {}
 
   return null
 }
@@ -114,38 +103,21 @@ const request = async <T>(
   retried = false
 ): Promise<T> => {
   const token = getAccessToken()
-  console.log(`📡 [API CLIENT] ${options.method || "GET"} ${path}`, {
-    hasToken: !!token,
-    retried,
-  })
-
   const init = buildRequestInit(options, token)
   const response = await fetch(`${API_BASE_URL}${path}`, init)
 
-  console.log(`📡 [API CLIENT] Response for ${path}:`, {
-    status: response.status,
-    ok: response.ok,
-  })
-
   // Handle 401 Unauthorized - try to refresh token
   if (response.status === 401 && !retried) {
-    console.log(`📡 [API CLIENT] Got 401 for ${path}, attempting refresh...`)
     const refreshedToken = await refreshAccessToken()
     if (refreshedToken) {
-      console.log(`📡 [API CLIENT] Retrying ${path} with new token...`)
       // Retry the original request with the new token
       const retryInit = buildRequestInit(options, refreshedToken)
       const retryResponse = await fetch(`${API_BASE_URL}${path}`, retryInit)
-      console.log(`📡 [API CLIENT] Retry response:`, {
-        status: retryResponse.status,
-        ok: retryResponse.ok,
-      })
       if (!retryResponse.ok) {
         const errorData = await parseResponse<unknown>(retryResponse)
         const errorMessage = getErrorMessage(errorData)
         // If retry also fails with 401, clear token and throw
         if (retryResponse.status === 401) {
-          console.error(`📡 [API CLIENT] Retry also got 401, clearing token`)
           removeAccessToken()
           throw new Error("Session expired. Please log in again.")
         }
@@ -155,7 +127,6 @@ const request = async <T>(
     }
 
     // Refresh failed, clear token
-    console.error(`📡 [API CLIENT] Refresh failed, clearing token`)
     removeAccessToken()
     throw new Error("Session expired. Please log in again.")
   }
@@ -163,7 +134,6 @@ const request = async <T>(
   if (!response.ok) {
     const errorData = await parseResponse<unknown>(response)
     const errorMessage = getErrorMessage(errorData)
-    console.error(`📡 [API CLIENT] Error for ${path}:`, errorMessage)
     throw new Error(errorMessage)
   }
 
