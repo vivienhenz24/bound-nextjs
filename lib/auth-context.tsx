@@ -21,12 +21,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const currentUserQuery = useQuery<User | null>({
     queryKey: ["auth", "me"],
     queryFn: async () => {
+      console.log("🔐 [AUTH QUERY] Fetching current user...")
       try {
         const user = await authApi.getCurrentUser()
+        console.log(
+          "🔐 [AUTH QUERY] User fetched:",
+          user ? { id: user.id, email: user.email } : null
+        )
         return user
-      } catch {
-        // Silent fail - user is just not authenticated
-        // Don't log error for public pages
+      } catch (error) {
+        console.log("🔐 [AUTH QUERY] Failed to fetch user (user not authenticated):", error)
         return null
       }
     },
@@ -38,6 +42,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const user = currentUserQuery.data ?? null
   const loading = currentUserQuery.isLoading
   const isAuthenticated = !!user
+
+  console.log("🔐 [AUTH CONTEXT] State:", {
+    user: user ? { id: user.id, email: user.email } : null,
+    loading,
+    isAuthenticated,
+    queryStatus: currentUserQuery.status,
+  })
 
   const refreshAuth = useCallback(async () => {
     await queryClient.invalidateQueries({ queryKey: ["auth", "me"] })
@@ -57,26 +68,40 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const login = useCallback(
     async (email: string, password: string, redirectTo = "/") => {
+      console.log("🔐 [AUTH] Login started", { email, redirectTo })
       try {
+        console.log("🔐 [AUTH] Calling backend login API...")
         const response = await loginMutation.mutateAsync({ email, password })
+        console.log("🔐 [AUTH] Login API response:", { hasAccessToken: !!response.access_token })
+
         setAccessToken(response.access_token)
+        console.log("🔐 [AUTH] Access token stored in sessionStorage")
 
         // Fetch user data after login and store it directly to avoid race conditions
+        console.log("🔐 [AUTH] Fetching user data...")
         const me = await authApi.getCurrentUser()
+        console.log("🔐 [AUTH] User data fetched:", { userId: me?.id, email: me?.email })
+
         queryClient.setQueryData(["auth", "me"], me)
+        console.log("🔐 [AUTH] User data cached in React Query")
 
         // Sync auth state to frontend domain (so middleware can detect it)
-        await fetch("/api/auth-sync", {
+        console.log("🔐 [AUTH] Syncing auth state to frontend domain...")
+        const syncResponse = await fetch("/api/auth-sync", {
           method: "POST",
           credentials: "include",
         })
+        const syncData = await syncResponse.json()
+        console.log("🔐 [AUTH] Auth sync response:", syncData)
 
         // Small delay to ensure state updates have propagated
         await new Promise((resolve) => setTimeout(resolve, 100))
 
         // Redirect to target page (default "/" which shows home view for authenticated users)
+        console.log("🔐 [AUTH] Redirecting to:", redirectTo)
         router.push(redirectTo)
       } catch (error: unknown) {
+        console.error("🔐 [AUTH] Login failed:", error)
         if (error instanceof Error) {
           throw error
         }

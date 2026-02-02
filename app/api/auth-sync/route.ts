@@ -9,6 +9,8 @@ import { cookies } from "next/headers"
  * to middleware (localhost:3000), so we need this sync mechanism.
  */
 export async function POST() {
+  console.log("🔄 [AUTH-SYNC] POST - Setting auth_synced cookie")
+
   // Set a simple auth flag cookie on the frontend domain that middleware can read
   // This doesn't contain sensitive data, just indicates "user is authenticated"
   // We trust that this endpoint is only called after successful login
@@ -21,6 +23,13 @@ export async function POST() {
     path: "/",
   })
 
+  console.log("🔄 [AUTH-SYNC] Cookie set successfully", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+  })
+
   return NextResponse.json({ synced: true })
 }
 
@@ -28,7 +37,9 @@ export async function POST() {
  * DELETE endpoint to clear the sync cookie on logout
  */
 export async function DELETE() {
+  console.log("🔄 [AUTH-SYNC] DELETE - Clearing auth_synced cookie")
   const cookieStore = await cookies()
   cookieStore.delete("auth_synced")
+  console.log("🔄 [AUTH-SYNC] Cookie cleared")
   return NextResponse.json({ cleared: true })
 }

@@ -9,20 +9,31 @@ export function proxy(request: NextRequest) {
   const authSynced = request.cookies.get("auth_synced")?.value
   const isAuthenticated = authSynced === "true"
 
+  console.log("🛡️ [MIDDLEWARE]", {
+    pathname,
+    authSynced,
+    isAuthenticated,
+    allCookies: request.cookies.getAll().map((c) => c.name),
+  })
+
   // Auth-based routing for root path - show different content while keeping URL as "/"
   if (pathname === "/") {
     if (isAuthenticated) {
+      console.log("🛡️ [MIDDLEWARE] Rewriting / to /home")
       // Rewrite to home page, URL stays "/"
       return NextResponse.rewrite(new URL("/home", request.url))
     }
+    console.log("🛡️ [MIDDLEWARE] Showing marketing page at /")
     // If not authenticated, continue to marketing home page
   }
 
   // Redirect authenticated users away from login/signup pages
   if (pathname === "/login" || pathname === "/signup") {
     if (isAuthenticated) {
+      console.log(`🛡️ [MIDDLEWARE] REDIRECT: ${pathname} -> / (user is authenticated)`)
       return NextResponse.redirect(new URL("/", request.url))
     }
+    console.log(`🛡️ [MIDDLEWARE] Allowing access to ${pathname} (not authenticated)`)
   }
 
   // Protect app routes - redirect to login if not authenticated
@@ -35,13 +46,16 @@ export function proxy(request: NextRequest) {
     pathname.startsWith("/settings")
   ) {
     if (!isAuthenticated) {
+      console.log(`🛡️ [MIDDLEWARE] REDIRECT: ${pathname} -> /login?redirect=/ (not authenticated)`)
       const loginUrl = new URL("/login", request.url)
       // Add redirect param so they can return after login (but always use "/" as target)
       loginUrl.searchParams.set("redirect", "/")
       return NextResponse.redirect(loginUrl)
     }
+    console.log(`🛡️ [MIDDLEWARE] Allowing access to ${pathname} (authenticated)`)
   }
 
+  console.log(`🛡️ [MIDDLEWARE] Passing through: ${pathname}`)
   return NextResponse.next()
 }
 
