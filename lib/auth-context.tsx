@@ -97,9 +97,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
         // Small delay to ensure state updates have propagated
         await new Promise((resolve) => setTimeout(resolve, 100))
 
-        // Redirect to target page (default "/" which shows home view for authenticated users)
-        console.log("🔐 [AUTH] Redirecting to:", redirectTo)
-        router.push(redirectTo)
+        // Use window.location for hard navigation to trigger middleware
+        // router.push() does client-side nav which doesn't re-run middleware
+        console.log("🔐 [AUTH] Redirecting to:", redirectTo, "(hard navigation)")
+        window.location.href = redirectTo
       } catch (error: unknown) {
         console.error("🔐 [AUTH] Login failed:", error)
         if (error instanceof Error) {
@@ -125,21 +126,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
   )
 
   const logout = useCallback(async () => {
+    console.log("🔐 [AUTH] Logout started")
     try {
       await logoutMutation.mutateAsync()
+      console.log("🔐 [AUTH] Backend logout successful")
       // Clear the frontend auth sync cookie
       await fetch("/api/auth-sync", {
         method: "DELETE",
         credentials: "include",
       })
-    } catch {
-      // Ignore logout errors - always clear local state
+      console.log("🔐 [AUTH] Auth sync cookie cleared")
+    } catch (error) {
+      console.error("🔐 [AUTH] Logout error:", error)
     } finally {
       removeAccessToken()
       queryClient.setQueryData(["auth", "me"], null)
-      router.push("/")
+      console.log("🔐 [AUTH] Redirecting to / (hard navigation)")
+      window.location.href = "/"
     }
-  }, [logoutMutation, queryClient, router])
+  }, [logoutMutation, queryClient])
 
   return (
     <AuthContext.Provider
