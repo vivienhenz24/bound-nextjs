@@ -11,9 +11,6 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.0.1
         version: 5.2.2(react-hook-form@7.71.1(react@19.2.3))
-      '@mesh-gradient/react':
-        specifier: ^1.4.1
-        version: 1.5.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@radix-ui/react-checkbox':
         specifier: ^1.3.3
         version: 1.3.3(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -426,15 +423,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
-
-  '@mesh-gradient/core@1.5.0':
-    resolution: {integrity: sha512-68kCPIoY24EZsexxVT/w3B9/jGnscB7ntgy/GSBt4UVIJxNxq0VB5YmLSadRdoSdYa5WTOm8BgAwiXUnzVzD6Q==}
-
-  '@mesh-gradient/react@1.5.0':
-    resolution: {integrity: sha512-zJ7JJzWzVU1Z/XHkYnRDKcbXhjlfqGEkZni5eT5xDBqi8/NQFJj3g6AO1n5FxAeCkjUbaFKwVNay8etbEy0lzQ==}
-    peerDependencies:
-      react: '>=18.0.0'
-      react-dom: '>=18.0.0'
 
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
@@ -3009,14 +2997,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
-
-  '@mesh-gradient/core@1.5.0': {}
-
-  '@mesh-gradient/react@1.5.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)':
-    dependencies:
-      '@mesh-gradient/core': 1.5.0
-      react: 19.2.3
-      react-dom: 19.2.3(react@19.2.3)
 
   '@napi-rs/wasm-runtime@0.2.12':
     dependencies:
