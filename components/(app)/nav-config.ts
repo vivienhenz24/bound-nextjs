@@ -24,7 +24,8 @@ export const mainNavItems: NavItem[] = [
     icon: LayersPlus,
     items: [
       { title: "New Model", href: "/my-models/new" },
-      { title: "Metrics", href: "/my-models/metrics" },
+      { title: "Datasets", href: "/my-models/datasets" },
+      { title: "Jobs", href: "/my-models/jobs" },
     ],
   },
 ]
