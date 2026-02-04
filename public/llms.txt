@@ -1,0 +1,29 @@
+# Bound (LLMs.txt)
+#
+# Purpose: Provide concise product context for LLMs and agents.
+
+## Product summary
+Bound helps teams fine-tune speech models from just a few hours of audio while keeping full ownership of their model and data.
+
+## What Bound does
+- Ingests a few hours of audio plus a chosen base model
+- Cleans and prepares audio automatically
+- Manages GPU training, evaluations, and parameter tuning
+- Supports deployment on customer infrastructure or via Bound for low latency
+
+## How it works (homepage)
+1. Upload your audio and choose a base model
+2. We clean and prepare your data
+3. We handle the training and optimization
+4. Deploy on your terms
+
+## Positioning
+- Simple, end-to-end fine-tuning pipeline for speech models
+- Focus on ownership of data and model weights
+- Designed for production-ready voice models
+
+## Contact
+- Contact Us: https://calendly.com/vikrambhamre/meeting
+
+## Key pages
+- Homepage: https://bound.sh/
