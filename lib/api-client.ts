@@ -56,6 +56,14 @@ const parseResponse = async <T>(response: Response): Promise<T> => {
   return (await response.text()) as T
 }
 
+const readResponseBodySafe = async (response: Response): Promise<string | undefined> => {
+  try {
+    return await response.clone().text()
+  } catch {
+    return undefined
+  }
+}
+
 const getErrorMessage = (errorData: unknown): string => {
   if (typeof errorData === "string") {
     return errorData
@@ -84,6 +92,14 @@ const refreshAccessToken = async (): Promise<string | null> => {
     })
 
     if (!response.ok) {
+      const body = await readResponseBodySafe(response)
+      console.warn("[api] refresh failed response", {
+        status: response.status,
+        statusText: response.statusText,
+        url: response.url,
+        hasSetCookieHeader: Boolean(response.headers.get("set-cookie")),
+        body,
+      })
       return null
     }
 
@@ -92,6 +108,7 @@ const refreshAccessToken = async (): Promise<string | null> => {
       setAccessToken(data.access_token)
       return data.access_token
     }
+    console.warn("[api] refresh response missing access_token")
   } catch (error) {}
 
   return null
@@ -104,14 +121,45 @@ const request = async <T>(
 ): Promise<T> => {
   const token = getAccessToken()
   const init = buildRequestInit(options, token)
+  console.debug("[api] base url", { API_BASE_URL })
+  console.debug("[api] request", {
+    path,
+    method: init.method,
+    hasAccessToken: Boolean(token),
+    credentials: init.credentials,
+  })
   const response = await fetch(`${API_BASE_URL}${path}`, init)
 
   // Handle 401 Unauthorized - try to refresh token
-  if (response.status === 401 && !retried) {
+  const isAuthEndpoint =
+    path === "/auth/login" ||
+    path === "/auth/register" ||
+    path === "/auth/refresh" ||
+    path === "/auth/logout"
+  const shouldAttemptRefresh =
+    response.status === 401 && !retried && !isAuthEndpoint && Boolean(token)
+  if (shouldAttemptRefresh) {
+    const body = await readResponseBodySafe(response)
+    console.warn("[api] 401 response body", {
+      path,
+      status: response.status,
+      statusText: response.statusText,
+      url: response.url,
+      body,
+    })
+    console.warn("[api] 401 received, attempting refresh", { path })
     const refreshedToken = await refreshAccessToken()
+    console.debug("[api] refresh result", {
+      path,
+      refreshedToken: Boolean(refreshedToken),
+    })
     if (refreshedToken) {
       // Retry the original request with the new token
       const retryInit = buildRequestInit(options, refreshedToken)
+      console.debug("[api] retrying request with refreshed token", {
+        path,
+        method: retryInit.method,
+      })
       const retryResponse = await fetch(`${API_BASE_URL}${path}`, retryInit)
       if (!retryResponse.ok) {
         const errorData = await parseResponse<unknown>(retryResponse)
@@ -119,6 +167,7 @@ const request = async <T>(
         // If retry also fails with 401, clear token and throw
         if (retryResponse.status === 401) {
           removeAccessToken()
+          console.warn("[api] retry 401 after refresh; clearing token", { path })
           throw new Error("Session expired. Please log in again.")
         }
         throw new Error(errorMessage)
@@ -128,6 +177,7 @@ const request = async <T>(
 
     // Refresh failed, clear token
     removeAccessToken()
+    console.warn("[api] refresh failed; clearing token", { path })
     throw new Error("Session expired. Please log in again.")
   }
 

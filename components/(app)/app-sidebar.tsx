@@ -33,7 +33,12 @@ export function AppSidebar() {
   React.useEffect(() => {
     mainNavItems.forEach((item) => {
       if (item.items?.length && isNavItemActive(pathname, item.href)) {
-        setOpenSections((prev) => ({ ...prev, [item.href]: true }))
+        setOpenSections((prev) => {
+          if (typeof prev[item.href] === "boolean") {
+            return prev
+          }
+          return { ...prev, [item.href]: true }
+        })
       }
     })
   }, [pathname])
@@ -58,7 +63,7 @@ export function AppSidebar() {
                   ? pathname === item.href
                   : isNavItemActive(pathname, item.href)
                 const isSectionOpen = hasSubItems && isNavItemActive(pathname, item.href)
-                const isOpen = Boolean(isSectionOpen || openSections[item.href])
+                const isOpen = openSections[item.href] ?? isSectionOpen
 
                 if (!hasSubItems) {
                   return (
@@ -100,7 +105,7 @@ export function AppSidebar() {
                         </Link>
                       </SidebarMenuButton>
                       <CollapsibleTrigger asChild>
-                        <SidebarMenuAction>
+                        <SidebarMenuAction hideWhenCollapsed={false}>
                           <ChevronRight className="transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                           <span className="sr-only">Toggle</span>
                         </SidebarMenuAction>
