@@ -9,6 +9,7 @@ import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useAuth } from "@/hooks/use-auth"
 import { authApi } from "@/lib/api/auth-api"
+import { API_BASE_URL } from "@/lib/api-config"
 
 const loginSchema = z.object({
   email: z.string().trim().email("Enter a valid email address."),
@@ -80,7 +81,9 @@ export function LoginForm({ redirectTo = "/" }: LoginFormProps) {
 
   const handleGoogleSignIn = (e: React.MouseEvent) => {
     e.preventDefault()
-    setError("Google Sign-In coming soon. Please use email/password for now.")
+    const redirectTarget = redirectTo?.startsWith("/") ? redirectTo : "/"
+    const url = `${API_BASE_URL}/auth/google/login?redirect=${encodeURIComponent(redirectTarget)}`
+    window.location.href = url
   }
 
   return (
