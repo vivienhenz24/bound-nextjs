@@ -30,4 +30,10 @@ export const authApi = {
   resendVerification: async (email: string): Promise<{ message: string }> => {
     return await apiClient.post<{ message: string }>("/auth/resend-verification", { email })
   },
+
+  googleComplete: async (exchangeCode: string): Promise<LoginResponse> => {
+    return await apiClient.post<LoginResponse>("/auth/google/complete", {
+      exchange_code: exchangeCode,
+    })
+  },
 }

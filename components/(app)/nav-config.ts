@@ -1,4 +1,4 @@
-import { LayoutDashboard, LayersPlus, BookAudio, type LucideIcon } from "lucide-react"
+import { LayoutDashboard, LayersPlus, BookAudio, Database, type LucideIcon } from "lucide-react"
 
 export type NavItem = {
   title: string
@@ -19,12 +19,22 @@ export const mainNavItems: NavItem[] = [
     ],
   },
   {
+    title: "Datasets",
+    href: "/datasets",
+    icon: Database,
+    items: [
+      { title: "All datasets", href: "/datasets" },
+      { title: "Upload dataset", href: "/datasets/new" },
+    ],
+  },
+  {
     title: "My Models",
     href: "/my-models",
     icon: LayersPlus,
     items: [
       { title: "New Model", href: "/my-models/new" },
-      { title: "Metrics", href: "/my-models/metrics" },
+      { title: "Datasets", href: "/my-models/datasets" },
+      { title: "Jobs", href: "/my-models/jobs" },
     ],
   },
 ]
