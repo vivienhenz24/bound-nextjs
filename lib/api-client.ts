@@ -13,6 +13,9 @@ type RequestOptions = {
   signal?: AbortSignal
 }
 
+// Mutex to prevent concurrent refresh attempts
+let refreshPromise: Promise<string | null> | null = null
+
 const isFormData = (body: RequestOptions["body"]): body is FormData => {
   return typeof FormData !== "undefined" && body instanceof FormData
 }
@@ -84,7 +87,7 @@ const getErrorMessage = (errorData: unknown): string => {
   return "Request failed."
 }
 
-const refreshAccessToken = async (): Promise<string | null> => {
+const doRefreshAccessToken = async (): Promise<string | null> => {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
       method: "POST",
@@ -114,6 +117,21 @@ const refreshAccessToken = async (): Promise<string | null> => {
   return null
 }
 
+// Mutex-protected refresh to prevent race conditions
+const refreshAccessToken = async (): Promise<string | null> => {
+  // If a refresh is already in progress, wait for it
+  if (refreshPromise) {
+    return refreshPromise
+  }
+
+  // Start a new refresh and store the promise
+  refreshPromise = doRefreshAccessToken().finally(() => {
+    refreshPromise = null
+  })
+
+  return refreshPromise
+}
+
 const request = async <T>(
   path: string,
   options: RequestOptions = {},
@@ -136,8 +154,8 @@ const request = async <T>(
     path === "/auth/register" ||
     path === "/auth/refresh" ||
     path === "/auth/logout"
-  const shouldAttemptRefresh =
-    response.status === 401 && !retried && !isAuthEndpoint && Boolean(token)
+  // Attempt refresh on 401 even without access token (refresh cookie may still be valid)
+  const shouldAttemptRefresh = response.status === 401 && !retried && !isAuthEndpoint
   if (shouldAttemptRefresh) {
     const body = await readResponseBodySafe(response)
     console.warn("[api] 401 response body", {
