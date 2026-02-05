@@ -1,4 +1,4 @@
-import { LayoutDashboard, LayersPlus, BookAudio, type LucideIcon } from "lucide-react"
+import { LayoutDashboard, LayersPlus, BookAudio, Database, type LucideIcon } from "lucide-react"
 
 export type NavItem = {
   title: string
@@ -16,6 +16,15 @@ export const mainNavItems: NavItem[] = [
     items: [
       { title: "Explore", href: "/libary/explore" },
       { title: "My Collection", href: "/libary/my-collection" },
+    ],
+  },
+  {
+    title: "Datasets",
+    href: "/datasets",
+    icon: Database,
+    items: [
+      { title: "All datasets", href: "/datasets" },
+      { title: "Upload dataset", href: "/datasets/new" },
     ],
   },
   {
