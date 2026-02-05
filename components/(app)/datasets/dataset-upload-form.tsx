@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { ttsApi } from "@/lib/api/tts-api"
+import { datasetsApi } from "@/lib/api/tts-api"
 import { cn } from "@/lib/utils"
 
 const formSchema = z.object({
@@ -70,19 +70,16 @@ export default function DatasetUploadForm() {
       return
     }
 
-    const formData = new FormData()
-    formData.append("name", values.name)
-    if (values.description) {
-      formData.append("description", values.description)
-    }
-    formData.append("transcript_type", values.transcriptType)
-    formData.append("auto_process", "true")
-    formData.append("audio", audioFile)
-    formData.append("transcript", transcriptFile)
-
     try {
       setIsSubmitting(true)
-      await ttsApi.createDataset(formData)
+      await datasetsApi.create({
+        name: values.name,
+        description: values.description || undefined,
+        transcript_type: values.transcriptType,
+        audio: audioFile,
+        transcript: transcriptFile,
+        auto_process: true,
+      })
       router.push("/datasets")
     } catch (error) {
       const message = error instanceof Error ? error.message : "Upload failed."

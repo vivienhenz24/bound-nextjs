@@ -20,8 +20,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { ttsApi } from "@/lib/api/tts-api"
-import type { DatasetListItem, DatasetStatus } from "@/lib/types/tts"
+import { datasetsApi } from "@/lib/api/tts-api"
+import type { DatasetStatus, TTSDatasetListItem } from "@/lib/types/tts"
 import { cn } from "@/lib/utils"
 import { Database } from "lucide-react"
 
@@ -69,7 +69,7 @@ const formatDate = (value: string) => {
 }
 
 export default function DatasetsView() {
-  const [datasets, setDatasets] = useState<DatasetListItem[]>([])
+  const [datasets, setDatasets] = useState<TTSDatasetListItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [busyIds, setBusyIds] = useState<Record<string, boolean>>({})
@@ -81,7 +81,7 @@ export default function DatasetsView() {
         setLoading(true)
       }
       try {
-        const data = await ttsApi.listDatasets()
+        const data = await datasetsApi.list()
         setDatasets(data)
         setError(null)
       } catch (err) {
@@ -121,7 +121,7 @@ export default function DatasetsView() {
     setBusyIds((prev) => ({ ...prev, [datasetId]: true }))
     setError(null)
     try {
-      await ttsApi.processDataset(datasetId)
+      await datasetsApi.process(datasetId)
       await fetchDatasets({ silent: true })
     } catch (err) {
       const message = err instanceof Error ? err.message : "Failed to process dataset."
@@ -135,7 +135,7 @@ export default function DatasetsView() {
     setBusyIds((prev) => ({ ...prev, [datasetId]: true }))
     setError(null)
     try {
-      await ttsApi.deleteDataset(datasetId)
+      await datasetsApi.delete(datasetId)
       await fetchDatasets({ silent: true })
     } catch (err) {
       const message = err instanceof Error ? err.message : "Failed to delete dataset."
