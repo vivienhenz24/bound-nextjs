@@ -13,6 +13,13 @@ export async function POST() {
   // This doesn't contain sensitive data, just indicates "user is authenticated"
   // We trust that this endpoint is only called after successful login
   const cookieStore = await cookies()
+
+  console.log("[AUTH-SYNC] POST: Setting auth_synced cookie")
+  console.log(
+    "[AUTH-SYNC] Existing cookies:",
+    cookieStore.getAll().map((c) => c.name)
+  )
+
   cookieStore.set("auth_synced", "true", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -21,6 +28,7 @@ export async function POST() {
     path: "/",
   })
 
+  console.log("[AUTH-SYNC] POST: auth_synced cookie set successfully")
   return NextResponse.json({ synced: true })
 }
 
@@ -29,6 +37,12 @@ export async function POST() {
  */
 export async function DELETE() {
   const cookieStore = await cookies()
+  console.log("[AUTH-SYNC] DELETE: Clearing auth_synced cookie")
+  console.log(
+    "[AUTH-SYNC] Cookies before delete:",
+    cookieStore.getAll().map((c) => c.name)
+  )
   cookieStore.delete("auth_synced")
+  console.log("[AUTH-SYNC] DELETE: auth_synced cookie cleared")
   return NextResponse.json({ cleared: true })
 }

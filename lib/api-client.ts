@@ -89,14 +89,23 @@ const getErrorMessage = (errorData: unknown): string => {
 
 const doRefreshAccessToken = async (): Promise<string | null> => {
   try {
+    console.log("[COOKIE] doRefreshAccessToken: Starting refresh request")
+    console.log("[COOKIE] doRefreshAccessToken: document.cookie (non-httpOnly):", document.cookie)
+
     const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
       method: "POST",
       credentials: "include",
     })
 
+    console.log("[COOKIE] doRefreshAccessToken: Response headers:", {
+      status: response.status,
+      setCookie: response.headers.get("set-cookie"),
+      allHeaders: Object.fromEntries(response.headers.entries()),
+    })
+
     if (!response.ok) {
       const body = await readResponseBodySafe(response)
-      console.warn("[api] refresh failed response", {
+      console.warn("[COOKIE] refresh failed response", {
         status: response.status,
         statusText: response.statusText,
         url: response.url,
@@ -107,12 +116,18 @@ const doRefreshAccessToken = async (): Promise<string | null> => {
     }
 
     const data = (await response.json()) as { access_token?: string }
+    console.log("[COOKIE] doRefreshAccessToken: Response data:", {
+      hasAccessToken: !!data.access_token,
+      keys: Object.keys(data),
+    })
     if (data.access_token) {
       setAccessToken(data.access_token)
       return data.access_token
     }
-    console.warn("[api] refresh response missing access_token")
-  } catch (error) {}
+    console.warn("[COOKIE] refresh response missing access_token")
+  } catch (error) {
+    console.error("[COOKIE] doRefreshAccessToken error:", error)
+  }
 
   return null
 }
@@ -146,7 +161,12 @@ const request = async <T>(
     hasAccessToken: Boolean(token),
     credentials: init.credentials,
   })
+  console.log("[COOKIE] request: document.cookie before fetch:", document.cookie || "(empty)")
   const response = await fetch(`${API_BASE_URL}${path}`, init)
+  console.log("[COOKIE] request: Response for", path, {
+    status: response.status,
+    setCookieHeader: response.headers.get("set-cookie"),
+  })
 
   // Handle 401 Unauthorized - try to refresh token
   const isAuthEndpoint =

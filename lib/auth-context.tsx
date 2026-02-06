@@ -54,12 +54,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const login = useCallback(
     async (email: string, password: string, redirectTo = "/") => {
       try {
+        console.log("[LOGIN] Starting login for:", email)
+        console.log("[LOGIN] document.cookie before login:", document.cookie || "(empty)")
         const response = await loginMutation.mutateAsync({ email, password })
+        console.log("[LOGIN] Login response:", response)
+        console.log("[LOGIN] document.cookie after login response:", document.cookie || "(empty)")
 
         setAccessToken(response.access_token)
+        console.log("[LOGIN] Access token set")
 
         // Fetch user data after login and store it directly to avoid race conditions
         const me = await authApi.getCurrentUser()
+        console.log("[LOGIN] getCurrentUser response:", me)
 
         queryClient.setQueryData(["auth", "me"], me)
 
@@ -68,15 +74,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
           method: "POST",
           credentials: "include",
         })
-        await syncResponse.json()
+        const syncData = await syncResponse.json()
+        console.log("[LOGIN] auth-sync response:", syncData)
+        console.log("[LOGIN] document.cookie after auth-sync:", document.cookie || "(empty)")
 
         // Small delay to ensure state updates have propagated
         await new Promise((resolve) => setTimeout(resolve, 100))
 
+        console.log("[LOGIN] Final cookie state before redirect:", document.cookie || "(empty)")
+        console.log("[LOGIN] Redirecting to:", redirectTo)
         // Use window.location for hard navigation to trigger middleware
         // router.push() does client-side nav which doesn't re-run middleware
         window.location.href = redirectTo
       } catch (error: unknown) {
+        console.error("[LOGIN] Error:", error)
         if (error instanceof Error) {
           throw error
         }
