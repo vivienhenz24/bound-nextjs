@@ -132,6 +132,15 @@ const doRefreshAccessToken = async (): Promise<string | null> => {
   return null
 }
 
+const handleSessionExpired = async () => {
+  removeAccessToken()
+  // Clear the auth_synced cookie so the proxy stops letting the user through
+  try {
+    await fetch("/api/auth-sync", { method: "DELETE", credentials: "include" })
+  } catch {}
+  window.location.href = "/login"
+}
+
 // Mutex-protected refresh to prevent race conditions
 const refreshAccessToken = async (): Promise<string | null> => {
   // If a refresh is already in progress, wait for it
@@ -204,8 +213,8 @@ const request = async <T>(
         const errorMessage = getErrorMessage(errorData)
         // If retry also fails with 401, clear token and throw
         if (retryResponse.status === 401) {
-          removeAccessToken()
-          console.warn("[api] retry 401 after refresh; clearing token", { path })
+          console.warn("[api] retry 401 after refresh; clearing session", { path })
+          await handleSessionExpired()
           throw new Error("Session expired. Please log in again.")
         }
         throw new Error(errorMessage)
@@ -213,9 +222,9 @@ const request = async <T>(
       return await parseResponse<T>(retryResponse)
     }
 
-    // Refresh failed, clear token
-    removeAccessToken()
-    console.warn("[api] refresh failed; clearing token", { path })
+    // Refresh failed, clear session
+    console.warn("[api] refresh failed; clearing session", { path })
+    await handleSessionExpired()
     throw new Error("Session expired. Please log in again.")
   }
 
