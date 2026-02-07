@@ -31,6 +31,7 @@ export function proxy(request: NextRequest) {
     pathname.startsWith("/library") ||
     pathname.startsWith("/libary") ||
     pathname.startsWith("/my-models") ||
+    pathname.startsWith("/datasets") ||
     pathname.startsWith("/profile") ||
     pathname.startsWith("/settings")
   ) {
@@ -54,6 +55,7 @@ export const config = {
     "/library/:path*",
     "/libary/:path*",
     "/my-models/:path*",
+    "/datasets/:path*",
     "/profile/:path*",
     "/settings/:path*",
     "/misc/:path*",

@@ -138,7 +138,10 @@ const handleSessionExpired = async () => {
   try {
     await fetch("/api/auth-sync", { method: "DELETE", credentials: "include" })
   } catch {}
-  window.location.href = "/login"
+  // Reload so the proxy can redirect to /login
+  if (typeof window !== "undefined") {
+    window.location.reload()
+  }
 }
 
 // Mutex-protected refresh to prevent race conditions
@@ -182,7 +185,8 @@ const request = async <T>(
     path === "/auth/login" ||
     path === "/auth/register" ||
     path === "/auth/refresh" ||
-    path === "/auth/logout"
+    path === "/auth/logout" ||
+    path === "/auth/me"
   // Attempt refresh on 401 even without access token (refresh cookie may still be valid)
   const shouldAttemptRefresh = response.status === 401 && !retried && !isAuthEndpoint
   if (shouldAttemptRefresh) {
