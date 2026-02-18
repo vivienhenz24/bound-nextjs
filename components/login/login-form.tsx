@@ -79,13 +79,6 @@ export function LoginForm({ redirectTo = "/" }: LoginFormProps) {
     }
   }
 
-  const handleGoogleSignIn = (e: React.MouseEvent) => {
-    e.preventDefault()
-    const redirectTarget = redirectTo?.startsWith("/") ? redirectTo : "/"
-    const url = `${API_BASE_URL}/auth/google/login?redirect=${encodeURIComponent(redirectTarget)}`
-    window.location.href = url
-  }
-
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-2">
@@ -187,14 +180,6 @@ export function LoginForm({ redirectTo = "/" }: LoginFormProps) {
         <div className="flex flex-col gap-3">
           <Button type="submit" className="w-full h-11" disabled={loading}>
             {loading ? "Signing in..." : "Continue"}
-          </Button>
-          <Button
-            variant="outline"
-            className="w-full h-11"
-            onClick={handleGoogleSignIn}
-            type="button"
-          >
-            Sign in with Google
           </Button>
         </div>
       </form>
