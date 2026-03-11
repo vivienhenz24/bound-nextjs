@@ -23,7 +23,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const user = await authApi.getCurrentUser()
         return user
       } catch (error) {
-        return null
+        try {
+          const refreshed = await authApi.refreshToken()
+          setAccessToken(refreshed.access_token)
+          const user = await authApi.getCurrentUser()
+          return user
+        } catch (refreshError) {
+          removeAccessToken()
+          await fetch("/api/auth-sync", {
+            method: "DELETE",
+            credentials: "include",
+          })
+          return null
+        }
       }
     },
     retry: false,
